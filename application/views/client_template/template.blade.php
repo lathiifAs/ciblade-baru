@@ -1,0 +1,6 @@
+@include('client_template/header')
+@include('client_template/menu_header')
+@include('client_template/main_banner')
+@include('client_template/content')
+@include('client_template/footer')
+@include('client_template/js_main')
