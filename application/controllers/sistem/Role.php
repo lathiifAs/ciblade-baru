@@ -29,18 +29,13 @@ class Role extends MY_Controller {
 		--------------------------------------------------------*/
 		//parsing js url
 		$this->parsing_js([
-			// 'assets/js/jquery.smartWizard.js'
-			// 'assets/vendor/jquery-validation/dist/jquery.validate.min.js',
-			// 'assets/vendor/jquery-validation/dist/additional-methods.min.js',
-			// 'assets/vendor/jquery-steps/jquery.steps.min.js',
-			// 'assets/costum/js/main.js'
-		   ]);
+			'assets/plugin/select2/select2.full.min.js'
+		]);
 		//parsing css url
 		$this->parsing_css([
-			// 'assets/css/smart_wizard.css',
-			// 'assets/css/smart_wizard_theme_dots.css'
-			]);
-
+			'assets/plugin/select2/select2.min.css',
+			'assets/plugin/select2/select2-bootstrap.min.css'
+		]);
 		//parsing data tanpa template
 		$this->parsing([
 			'title' => 'Role'

@@ -1,4 +1,10 @@
+
 <script src="{{ base_url('assets/js/lib/jquery.min.js') }}"></script>
+@if(!empty($js))
+        @foreach ($js as $url_js)
+        <script src="{{ base_url($url_js) }}">
+        @endforeach
+@endif
 <script src="{{ base_url('assets/js/lib/jquery.plugin.js') }}"></script>
 <!-- jquery vendor -->
 <script src="{{ base_url('assets/js/lib/jquery.nanoscroller.min.js') }}"></script>
@@ -19,17 +25,10 @@
 <script src="{{ base_url('assets/js/lib/datamap/datamaps.world.min.js') }}"></script>
 {{-- <script src="{{ base_url('assets/js/lib/datamap/datamap-init.js') }}"></script> --}}
 {{-- <script src="{{ base_url('assets/lib/lobipanel/js/lobipanel.js') }}"></script> --}}
-{{-- Datamap --}}
+
+
 <script src="{{ base_url('assets/js/scripts.js') }}"></script>
-
-
-@if(!empty($js))
-        @foreach ($js as $url_js)
-        <link href="<?php echo base_url($url_js); ?>">
-        @endforeach
-@endif
-
-
+@stack('ext_js')
 
 </body>
 

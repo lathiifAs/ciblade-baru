@@ -24,7 +24,7 @@
     <link href="{{ base_url('assets/css/lib/sidebar.css') }}" rel="stylesheet">
     <link href="{{ base_url('assets/css/lib/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ base_url('assets/css/lib/nixon.css') }}" rel="stylesheet">
-    {{-- <link href="{{ base_url('assets/lib/lobipanel/css/lobipanel.min.css') }}" rel="stylesheet"> --}}
+    <link href="{{ base_url('assets/lib/lobipanel/css/lobipanel.min.css') }}" rel="stylesheet">
     <link href="{{ base_url('assets/css/style.css') }}" rel="stylesheet">
 
     @if(!empty($css))
@@ -33,6 +33,11 @@
         @endforeach
     @endif
 
+    <style>
+        .select2-container .select2-selection--single {
+            height: 40px !important;
+        }
+    </style>
 </head>
 
 

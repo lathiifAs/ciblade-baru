@@ -7,7 +7,7 @@
                     <div class="col-lg-8 p-0">
                         <div class="page-header">
                             <div class="page-title">
-                            <h1>{{ $title }}</h1>
+                            <h1><?php echo e($title); ?></h1>
                             </div>
                         </div>
                     </div>
@@ -16,7 +16,7 @@
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
                                     <li><a href="#">Sistem</a></li>
-                                    <li class="active">{{ $title }}</li>
+                                    <li class="active"><?php echo e($title); ?></li>
                                 </ol>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                             <h4>Daftar Role</h4>
                             <div class="card-header-right-icon">
                                 <ul>
-                                    <a href="{{ site_url('sistem/role/add') }}" type="button" class="btn btn-primary m-b-10 m-l-5">Tambah Data</a>
+                                    <a href="<?php echo e(site_url('sistem/role/add')); ?>" type="button" class="btn btn-primary m-b-10 m-l-5">Tambah Data</a>
                                 </ul>
                             </div>
                             <hr>
@@ -49,9 +49,9 @@
                                                             <label class="col-sm-3 control-label">Role Group</label>
                                                             <div class="col-sm-9">
                                                             <select name="group_id" id="single" class="form-control select2-single">
-                                                                @foreach ($groups as $group)
-                                                                <option value="{{ $group['group_id'] }}">{{ $group['group_name'] }}</option>
-                                                                @endforeach
+                                                                <?php $__currentLoopData = $groups; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $group): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                                <option value="<?php echo e($group['group_id']); ?>"><?php echo e($group['group_name']); ?></option>
+                                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                             </select>
                                                             </div>
                                                         </div>
@@ -64,8 +64,8 @@
                                             </form>
                                         </div>
 
-                                        {{-- notif --}}
-                                        @include('template/notif')
+                                        
+                                        <?php echo $__env->make('template/notif', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
                                         <hr>
                                         <table class="table table-responsive table-striped">
@@ -79,27 +79,27 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($result as $rs)
+                                            <?php $__currentLoopData = $result; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rs): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <tr>
-                                                    <th class="text-align text-center"> {{ $no++ }} </th>
-                                                    <td>{{ $rs['role_nm'] }}</td>
-                                                    <td class="text-align text-center">{{ $rs['group_name'] }}</td>
-                                                    <td>{{ $rs['role_desc'] }}</td>
+                                                    <th class="text-align text-center"> <?php echo e($no++); ?> </th>
+                                                    <td><?php echo e($rs['role_nm']); ?></td>
+                                                    <td class="text-align text-center"><?php echo e($rs['group_name']); ?></td>
+                                                    <td><?php echo e($rs['role_desc']); ?></td>
                                                     <td>
-                                                            <a href="{{ site_url('sistem/role/detail/'.$rs['role_id']) }}" type="button" class="btn btn-info btn-rounded m-b-10 m-l-5" title="Detail"><i class="ti-eye"></i></a>
-                                                            <a href="{{ site_url('sistem/role/edit/'.$rs['role_id']) }}" class="btn btn-warning btn-rounded m-b-10 m-l-5" title="Edit"><i class="ti-pencil"></i></a>
-                                                            <a href="{{ site_url('sistem/role/delete/'.$rs['role_id']) }}" class="btn btn-danger btn-rounded m-b-10 m-l-5" title="Delete"><i class="ti-trash"></i></button>
+                                                            <a href="<?php echo e(site_url('sistem/role/detail/'.$rs['role_id'])); ?>" type="button" class="btn btn-info btn-rounded m-b-10 m-l-5" title="Detail"><i class="ti-eye"></i></a>
+                                                            <a href="<?php echo e(site_url('sistem/role/edit/'.$rs['role_id'])); ?>" class="btn btn-warning btn-rounded m-b-10 m-l-5" title="Edit"><i class="ti-pencil"></i></a>
+                                                            <a href="<?php echo e(site_url('sistem/role/delete/'.$rs['role_id'])); ?>" class="btn btn-danger btn-rounded m-b-10 m-l-5" title="Delete"><i class="ti-trash"></i></button>
                                                     </td>
                                                 </tr>
-                                            @endforeach
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </tbody>
                                     </table>
                                     <div class="text-right">
-                                        @if (isset($pagination))
+                                        <?php if(isset($pagination)): ?>
                                             <ul class="pagination pagination-sm">
-                                                    <li class="page-item"><a class="page-link" href="#">{!! $pagination !!}</a></li>
+                                                    <li class="page-item"><a class="page-link" href="#"><?php echo $pagination; ?></a></li>
                                             </ul>
-                                        @endif
+                                        <?php endif; ?>
                                     </div>
                             </div>
                         </div>
@@ -110,7 +110,7 @@
         </div>
     </div>
     <!-- script untuk js external -->
-@push('ext_js')
+<?php $__env->startPush('ext_js'); ?>
 <script>
     $(document).ready(function () {
         $( ".select2-single" ).select2( {
@@ -120,4 +120,4 @@
 			} );
     });
 </script>
-@endpush
+<?php $__env->stopPush(); ?>
