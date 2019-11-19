@@ -84,24 +84,29 @@
                                             @foreach ($result as $rs)
                                                 <tr>
                                                     <th class="text-align text-center"> {{ $no++ }} </th>
-                                                    <td>{{ $rs['nav_title'] }}</td>
+                                                    <td>
+                                                    @if ($rs['parent_id'] == 0)
+                                                        {{ $rs['nav_title'] }}    
+                                                    @else
+                                                        -- {{ $rs['nav_title'] }}
+                                                    @endif
+                                                    </td>
                                                     <td>{{ $rs['nav_url'] }}</td>
-                                                    <td>
+                                                    <td class="text-align text-center">
                                                         @if ($rs['active_st'] == 1)
-                                                        Ya
+                                                        <span class="label label-primary">Ya</span>
                                                         @else
-                                                        Tidak
+                                                        <span class="label label-danger">Tidak</span>
                                                         @endif
                                                     </td>
-                                                    <td>
+                                                    <td class="text-align text-center">
                                                         @if ($rs['display_st'] == 1)
-                                                        Ya
+                                                        <span class="label label-primary">Ya</span>
                                                         @else
-                                                        Tidak
+                                                        <span class="label label-danger">Tidak</span>
                                                         @endif
                                                     </td>
                                                     <td>
-                                                            <a href="{{ site_url('sistem/role/detail/'.$rs['nav_id']) }}" type="button" class="btn btn-info btn-rounded m-b-10 m-l-5" title="Detail"><i class="ti-eye"></i></a>
                                                             <a href="{{ site_url('sistem/role/edit/'.$rs['nav_id']) }}" class="btn btn-warning btn-rounded m-b-10 m-l-5" title="Edit"><i class="ti-pencil"></i></a>
                                                             <a href="{{ site_url('sistem/role/delete/'.$rs['nav_id']) }}" class="btn btn-danger btn-rounded m-b-10 m-l-5" title="Delete"><i class="ti-trash"></i></button>
                                                     </td>

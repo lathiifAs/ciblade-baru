@@ -10,7 +10,7 @@
                              
                         </ul>
                     </li>
-                    <li><a target="_blank" href="https://docs.vuejsadmin.com/docs/nixon-admin/"><i class="ti-file"></i> Documentation</a></li>
+                    <li><a target="_blank" href="<?php echo e(base_url('assets/template_master/nixon-free/index.html')); ?>"><i class="ti-file"></i> Documentation</a></li>
                     <li <?php if(!empty($seg_menu) and $seg_menu == 'master'): ?> class="active" <?php endif; ?>>
                             <a class="sidebar-sub-toggle"><i class="ti-harddrives"></i> Master Data <span class="sidebar-collapse-icon ti-angle-down"></span></a>
                             <ul>

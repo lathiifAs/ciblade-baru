@@ -52,7 +52,7 @@ class Navigation extends MY_Controller {
 		$total_row = $this->M_navigation->count_all();
 		$config['base_url'] = base_url('index.php/sistem/navigation/index/');
 		$config['total_rows'] = $total_row;
-		$config['per_page'] = 10;
+		$config['per_page'] = 30;
 		$from = $this->uri->segment(4);
 		$this->pagination->initialize($config);		
 		$result = $this->M_navigation->get_all($config['per_page'],$from);
@@ -75,6 +75,7 @@ class Navigation extends MY_Controller {
 			'no' 			=> $no,
 			'pagination'	=> $this->pagination->create_links()
 		];
+		
 
 		//delete session notif
 		$this->session->unset_userdata('sess_notif');
