@@ -26,25 +26,11 @@ class M_navigation extends CI_Model {
   }
 
     //get all
-    public function get_all($number,$offset)
+    public function get_all($limit = array())
     {
         $this->db->select('*');
         $this->db->from('com_menu');
-        $this->db->limit($number, $offset); 
-        $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-          $result = $query->result_array();
-          $query->free_result();
-          return $result;
-        }
-        return array();
-    }
-
-    //all role
-    public function get_all_group()
-    {
-        $this->db->select('*');
-        $this->db->from('com_group');
+        $this->db->limit($limit[0], $limit[1]); 
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
           $result = $query->result_array();
@@ -55,30 +41,27 @@ class M_navigation extends CI_Model {
     }
 
 
-    //get by id
-    public function get_by_id($role_id)
-    {
-        $this->db->select('com_role.*, com_group.group_name');
-        $this->db->from('com_role');
-        $this->db->join('com_group', 'com_role.group_id = com_group.group_id', 'inner');
-        $this->db->where('com_role.role_id', $role_id);
-        $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-          $result = $query->row_array();
-          $query->free_result();
-          return $result;
-        }
-        return array();
-    }
+    // //get by id
+    // public function get_by_id($role_id)
+    // {
+    //     $this->db->select('com_role.*, com_group.group_name');
+    //     $this->db->from('com_role');
+    //     $this->db->join('com_group', 'com_role.group_id = com_group.group_id', 'inner');
+    //     $this->db->where('com_role.role_id', $role_id);
+    //     $query = $this->db->get();
+    //     if ($query->num_rows() > 0) {
+    //       $result = $query->row_array();
+    //       $query->free_result();
+    //       return $result;
+    //     }
+    //     return array();
+    // }
 
     //count all
     public function count_all()
     {
         $this->db->select('*');
-        $this->db->from('com_user');
-        $this->db->join('user', 'user.user_id = com_user.user_id', 'left');
-        $this->db->join('com_role_user', 'com_role_user.user_id = user.user_id', 'left');
-        $this->db->join('com_role', 'com_role_user.role_id = com_role.role_id', 'left');
+        $this->db->from('com_menu');
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
           $result = $query->num_rows();

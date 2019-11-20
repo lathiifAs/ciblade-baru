@@ -115,13 +115,10 @@
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </tbody>
                                     </table>
-                                    <?php echo $pagination; ?>
-
                                     <div class="text-right">
                                         <?php if(isset($pagination)): ?>
-                                            <ul class="pagination pagination-sm">
-                                                    <li class="page-item"><a class="page-link" href="#"><?php echo $pagination; ?></a></li>
-                                            </ul>
+                                            <?php echo $pagination; ?>
+
                                         <?php endif; ?>
                                     </div>
                             </div>

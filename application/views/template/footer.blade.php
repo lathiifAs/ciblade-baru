@@ -5,6 +5,7 @@
         <script src="{{ base_url($url_js) }}">
         @endforeach
 @endif
+<script></script> 
 <script src="{{ base_url('assets/js/lib/jquery.plugin.js') }}"></script>
 <!-- jquery vendor -->
 <script src="{{ base_url('assets/js/lib/jquery.nanoscroller.min.js') }}"></script>

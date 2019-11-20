@@ -5,6 +5,7 @@
         <script src="<?php echo e(base_url($url_js)); ?>">
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 <?php endif; ?>
+<script></script> 
 <script src="<?php echo e(base_url('assets/js/lib/jquery.plugin.js')); ?>"></script>
 <!-- jquery vendor -->
 <script src="<?php echo e(base_url('assets/js/lib/jquery.nanoscroller.min.js')); ?>"></script>

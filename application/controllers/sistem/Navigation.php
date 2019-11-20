@@ -46,17 +46,29 @@ class Navigation extends MY_Controller {
 	{
 		//default notif
 		$notif = $this->session->userdata('sess_notif');
-
-		//create pagination
+		//load library and config pagination
 		$this->load->library('pagination');
+		$this->load->config('pagination');
+		$config = $this->config->item('pagination_config');
+		//search
+		$search = '';
+		//create pagination
 		$total_row = $this->M_navigation->count_all();
-		$config['base_url'] = base_url('index.php/sistem/navigation/index/');
-		$config['total_rows'] = $total_row;
-		$config['per_page'] = 30;
-		$from = $this->uri->segment(4);
-		$this->pagination->initialize($config);		
-		$result = $this->M_navigation->get_all($config['per_page'],$from);
-		if (empty($result)) {
+		//konfigurasi pagination
+		$config['base_url'] = site_url('sistem/navigation/index'); //site url
+		$config['total_rows'] = $total_row; //total row
+		$config['per_page'] = 10;  //show record per halaman
+		$config["uri_segment"] = 4;  // uri parameter
+		$choice = $config["total_rows"] / $config["per_page"];
+		$config["num_links"] = floor($choice);
+
+		$this->pagination->initialize($config);
+		$data['page'] = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+		$limit = array($config["per_page"], $data['page']);
+		//panggil function get_mahasiswa_list yang ada pada mmodel mahasiswa_model. 
+		$data['data'] =   $this->M_navigation->get_all($limit);           
+		$data['pagination'] = $this->pagination->create_links();
+		if (empty($data['data'])) {
 			$no = 0;
 		}else{
 			$no = 1;
@@ -71,11 +83,11 @@ class Navigation extends MY_Controller {
 		$data = [
 			'tipe'			=> $notif['tipe'],
 			'pesan' 		=> $notif['pesan'],
-			'result' 		=> $result,
-			'no' 			=> $no,
-			'pagination'	=> $this->pagination->create_links()
+			'result' 		=> $data['data'],
+			'page' 			=> $data['page'],
+			'pagination'	=> $data['pagination'],
+			'no'			=> $no
 		];
-		
 
 		//delete session notif
 		$this->session->unset_userdata('sess_notif');
