@@ -31,6 +31,8 @@ class M_navigation extends CI_Model {
         $this->db->select('*');
         $this->db->from('com_menu');
         $this->db->limit($limit[0], $limit[1]); 
+        $this->db->order_by('nav_id', 'ASC');
+        $this->db->order_by('nav_no', 'ASC');
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
           $result = $query->result_array();
@@ -45,6 +47,8 @@ class M_navigation extends CI_Model {
         {
             $this->db->select('*');
             $this->db->from('com_menu');
+            $this->db->order_by('nav_id', 'ASC');
+            $this->db->order_by('nav_no', 'ASC');
             $query = $this->db->get();
             if ($query->num_rows() > 0) {
               $result = $query->result_array();
