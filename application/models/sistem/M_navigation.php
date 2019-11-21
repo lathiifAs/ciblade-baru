@@ -2,19 +2,19 @@
 
 class M_navigation extends CI_Model {
 
-  //generate id terakhir
+//generate id terakhir
   public function get_last_id()
   {
-      $sql = "SELECT role_id
-              FROM com_role
-              ORDER BY role_id DESC
+      $sql = "SELECT nav_id
+              FROM com_menu
+              ORDER BY nav_id DESC
               LIMIT 1";
       $query = $this->db->query($sql);
       if ($query->num_rows() > 0) {
           $result = $query->row_array();
           $query->free_result();
           // create next number
-          $number = intval($result['role_id']) + 1;
+          $number = intval($result['nav_id']) + 1;
           if ($number > 9999) {
               return false;
           }
@@ -39,6 +39,20 @@ class M_navigation extends CI_Model {
         }
         return array();
     }
+
+        //get all menu
+        public function get_all_menu()
+        {
+            $this->db->select('*');
+            $this->db->from('com_menu');
+            $query = $this->db->get();
+            if ($query->num_rows() > 0) {
+              $result = $query->result_array();
+              $query->free_result();
+              return $result;
+            }
+            return array();
+        }
 
 
     // //get by id

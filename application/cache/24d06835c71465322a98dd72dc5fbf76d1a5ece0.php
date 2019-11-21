@@ -31,10 +31,10 @@
                 <div class="col-lg-12">
                     <div class="card alert">
                         <div class="card-header">
-                            <h4>Daftar Navigation</h4>
+                            <h4>Daftar Role</h4>
                             <div class="card-header-right-icon">
                                 <ul>
-                                    <a href="<?php echo e(site_url('sistem/navigation/add')); ?>" type="button" class="btn btn-primary m-b-10 m-l-5">Tambah Data</a>
+                                    <a href="<?php echo e(site_url('sistem/role/add')); ?>" type="button" class="btn btn-primary m-b-10 m-l-5">Tambah Data</a>
                                 </ul>
                             </div>
                             <hr>
@@ -46,12 +46,11 @@
                                                 <div class="row">
                                                     <div class="col-lg-6">
                                                         <div class="form-group">
-                                                            <label class="col-sm-3 control-label">Navigation</label>
+                                                            <label class="col-sm-3 control-label">Role Group</label>
                                                             <div class="col-sm-9">
-                                                            <select name="nav_id" id="single" class="form-control select2-single">
-                                                            <option value='0'>Tidak ada</options>
-                                                                <?php $__currentLoopData = $result; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rs): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                                <option value="<?php echo e($rs['nav_id']); ?>"><?php echo e($rs['nav_title']); ?></option>
+                                                            <select name="group_id" id="single" class="form-control select2-single">
+                                                                <?php $__currentLoopData = $groups; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $group): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                                <option value="<?php echo e($group['group_id']); ?>"><?php echo e($group['group_name']); ?></option>
                                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                             </select>
                                                             </div>
@@ -73,11 +72,9 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-align text-center">No.</th>
-                                                <th class="text-align text-center">Judul Navigasi</th>
-                                                <th class="text-align text-center">URL Navigasi</th>
-                                                <th class="text-align text-center">Digunakan</th>
-                                                <th class="text-align text-center">Ditampilkan</th>
-                                                <th class="text-align text-center"></th>
+                                                <th class="text-align text-center">Role</th>
+                                                <th class="text-align text-center">Group</th>
+                                                <th class="text-align text-center">Dekripsi</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -85,32 +82,13 @@
                                             <?php $__currentLoopData = $result; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rs): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <tr>
                                                     <th class="text-align text-center"> <?php echo e($no++); ?> </th>
+                                                    <td><?php echo e($rs['role_nm']); ?></td>
+                                                    <td class="text-align text-center"><?php echo e($rs['group_name']); ?></td>
+                                                    <td><?php echo e($rs['role_desc']); ?></td>
                                                     <td>
-                                                    <?php if($rs['parent_id'] == 0): ?>
-                                                        <?php echo e($rs['nav_title']); ?>    
-                                                    <?php else: ?>
-                                                        -- <?php echo e($rs['nav_title']); ?>
-
-                                                    <?php endif; ?>
-                                                    </td>
-                                                    <td><?php echo e($rs['nav_url']); ?></td>
-                                                    <td class="text-align text-center">
-                                                        <?php if($rs['active_st'] == 1): ?>
-                                                        <span class="label label-primary">Ya</span>
-                                                        <?php else: ?>
-                                                        <span class="label label-danger">Tidak</span>
-                                                        <?php endif; ?>
-                                                    </td>
-                                                    <td class="text-align text-center">
-                                                        <?php if($rs['display_st'] == 1): ?>
-                                                        <span class="label label-primary">Ya</span>
-                                                        <?php else: ?>
-                                                        <span class="label label-danger">Tidak</span>
-                                                        <?php endif; ?>
-                                                    </td>
-                                                    <td>
-                                                            <a href="<?php echo e(site_url('sistem/role/edit/'.$rs['nav_id'])); ?>" class="btn btn-warning btn-rounded m-b-10 m-l-5" title="Edit">Edit</a>
-                                                            <a href="<?php echo e(site_url('sistem/role/delete/'.$rs['nav_id'])); ?>" class="btn btn-danger btn-rounded m-b-10 m-l-5" title="Delete">Hapus</a>
+                                                            <a href="<?php echo e(site_url('sistem/role/detail/'.$rs['role_id'])); ?>" type="button" class="btn btn-info btn-rounded m-b-10 m-l-5" title="Detail"><i class="ti-eye"></i></a>
+                                                            <a href="<?php echo e(site_url('sistem/role/edit/'.$rs['role_id'])); ?>" class="btn btn-warning btn-rounded m-b-10 m-l-5" title="Edit"><i class="ti-pencil"></i></a>
+                                                            <a href="<?php echo e(site_url('sistem/role/delete/'.$rs['role_id'])); ?>" class="btn btn-danger btn-rounded m-b-10 m-l-5" title="Delete"><i class="ti-trash"></i></button>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -118,8 +96,9 @@
                                     </table>
                                     <div class="text-right">
                                         <?php if(isset($pagination)): ?>
-                                            <?php echo $pagination; ?>
-
+                                            <ul class="pagination pagination-sm">
+                                                    <li class="page-item"><a class="page-link" href="#"><?php echo $pagination; ?></a></li>
+                                            </ul>
                                         <?php endif; ?>
                                     </div>
                             </div>

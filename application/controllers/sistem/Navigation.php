@@ -99,12 +99,11 @@ class Navigation extends MY_Controller {
 	{
 		//default notif
 		$notif = $this->session->userdata('sess_notif');
-		// get all role
-		$group = $this->M_navigation->get_all_group();
+		$menu = $this->M_navigation->get_all_menu();
 		$data = [
 			'tipe'	=> $notif['tipe'],
 			'pesan' => $notif['pesan'],
-			'groups' => $group
+			'rs_menu'	=> $menu
 		];
 		//delete session notif
 		$this->session->unset_userdata('sess_notif');
@@ -115,22 +114,31 @@ class Navigation extends MY_Controller {
 	 // add process
 	 public function add_process() {
         // cek input
-        $this->form_validation->set_rules('group_id', 'Group', 'trim|required');
-		$this->form_validation->set_rules('role_nm', 'Nama Role', 'trim|required');
-        // get last di role
-		$role_id =  $this->M_navigation->get_last_id();
+        $this->form_validation->set_rules('parent_id', 'Induk Menu', 'trim|required');
+		$this->form_validation->set_rules('nav_title', 'Judul Menu', 'required|max_length[50]');
+		$this->form_validation->set_rules('nav_url', 'Alamat Menu', 'trim|required|max_length[100]');
+		$this->form_validation->set_rules('nav_no', 'Urutan', 'trim|required');
+		$this->form_validation->set_rules('active_st', 'Digunakan', 'trim|required');
+		$this->form_validation->set_rules('display_st', 'Ditampilkan', 'trim|required');
+		//get last id 
+		$last_id = $this->M_navigation->get_last_id();
         // process
         if ($this->form_validation->run() !== FALSE) {
 			$params = array(
-				'role_id'	=> $role_id,
-				'group_id'	=> $this->input->post('group_id'),
-				'role_nm'	=> $this->input->post('role_nm'), 
-				'role_desc'	=> $this->input->post('role_desc'),
-				'mdb'		=> $this->get_login('user_name'),
-				'mdd'		=> date('Y-m-d H:i:s') 
+				'nav_id'		=> $last_id,
+				'parent_id'		=> $this->input->post('parent_id'),
+				'nav_title'		=> $this->input->post('nav_title'), 
+				'nav_desc'		=> $this->input->post('nav_desc'),
+				'nav_url'		=> $this->input->post('nav_url'),
+				'nav_no'		=> $this->input->post('nav_no'),
+				'active_st'		=> $this->input->post('active_st'),
+				'display_st'	=> $this->input->post('display_st'),
+				'mdb'			=> $this->get_login('user_id'),
+				'mdb_name'		=> $this->get_login('user_name'),
+				'mdd'			=> date('Y-m-d H:i:s') 
 			);
             // insert
-            if ($this->M_navigation->insert('com_navigation', $params)) {
+            if ($this->M_navigation->insert('com_menu', $params)) {
 				//sukses notif
 				$this->notif_msg('sistem/navigation/add', 'Sukses', 'Data berhasil ditambahkan');
             } else {

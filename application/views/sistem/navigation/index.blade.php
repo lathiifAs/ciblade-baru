@@ -34,7 +34,7 @@
                             <h4>Daftar Navigation</h4>
                             <div class="card-header-right-icon">
                                 <ul>
-                                    <a href="{{ site_url('sistem/role/add') }}" type="button" class="btn btn-primary m-b-10 m-l-5">Tambah Data</a>
+                                    <a href="{{ site_url('sistem/navigation/add') }}" type="button" class="btn btn-primary m-b-10 m-l-5">Tambah Data</a>
                                 </ul>
                             </div>
                             <hr>
@@ -49,6 +49,7 @@
                                                             <label class="col-sm-3 control-label">Navigation</label>
                                                             <div class="col-sm-9">
                                                             <select name="nav_id" id="single" class="form-control select2-single">
+                                                            <option value='0'>Tidak ada</options>
                                                                 @foreach ($result as $rs)
                                                                 <option value="{{ $rs['nav_id'] }}">{{ $rs['nav_title'] }}</option>
                                                                 @endforeach
@@ -107,8 +108,8 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                            <a href="{{ site_url('sistem/role/edit/'.$rs['nav_id']) }}" class="btn btn-warning btn-rounded m-b-10 m-l-5" title="Edit"><i class="ti-pencil"></i></a>
-                                                            <a href="{{ site_url('sistem/role/delete/'.$rs['nav_id']) }}" class="btn btn-danger btn-rounded m-b-10 m-l-5" title="Delete"><i class="ti-trash"></i></button>
+                                                            <a href="{{ site_url('sistem/role/edit/'.$rs['nav_id']) }}" class="btn btn-warning btn-rounded m-b-10 m-l-5" title="Edit">Edit</a>
+                                                            <a href="{{ site_url('sistem/role/delete/'.$rs['nav_id']) }}" class="btn btn-danger btn-rounded m-b-10 m-l-5" title="Delete">Hapus</a>
                                                     </td>
                                                 </tr>
                                             @endforeach

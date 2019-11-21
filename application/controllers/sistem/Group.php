@@ -114,7 +114,7 @@ class Group extends MY_Controller {
 				'group_id'		=> $group_id,
 				'group_name'	=> $this->input->post('group_name'), 
 				'group_desc'	=> $this->input->post('group_desc'),
-				'mdb'			=> $this->get_login('user_name'),
+				'mdb'			=> $this->get_login('user_id'),
 				'mdd'			=> date('Y-m-d H:i:s') 
 			);
             // insert
@@ -220,7 +220,7 @@ class Group extends MY_Controller {
 			$params = array(
 				'group_name'		=> $this->input->post('group_name'), 
 				'group_desc'		=> $this->input->post('group_desc'),
-				'mdb'				=> $this->get_login('user_name'),
+				'mdb'				=> $this->get_login('user_id'),
 				'mdd'				=> date('Y-m-d H:i:s') 
 			);
 			$where = array(

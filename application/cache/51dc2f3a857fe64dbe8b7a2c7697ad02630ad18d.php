@@ -6,7 +6,7 @@
                 <div class="col-lg-8 p-0">
                     <div class="page-header">
                         <div class="page-title">
-                            <h1>{{ $title }}</h1>
+                            <h1><?php echo e($title); ?></h1>
                         </div>
                     </div>
                 </div>
@@ -15,7 +15,7 @@
                         <div class="page-title">
                             <ol class="breadcrumb text-right">
                                 <li><a href="#">Sistem</a></li>
-                                <li class="active">{{ $title }}</li>
+                                <li class="active"><?php echo e($title); ?></li>
                                 <li class="active">Tambah Data</li>
                             </ol>
                         </div>
@@ -33,14 +33,14 @@
                                     <h4>Tambah Data</h4>
                                     <div class="card-header-right-icon">
                                         <ul>
-                                            <a href="{{ site_url('sistem/navigation') }}" type="button"
+                                            <a href="<?php echo e(site_url('sistem/navigation')); ?>" type="button"
                                                 class="btn btn-default m-b-10 m-l-5">Kembali</a>
                                         </ul>
                                     </div>
                                 </div>
 
-                                {{-- notif --}}
-                                @include('template/notif')
+                                
+                                <?php echo $__env->make('template/notif', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
                                 <hr>
                                 <div class="card-body" style="margin-top:20px">
@@ -48,7 +48,7 @@
                                         <div class="main">
                                             <div class="horizontal-form-elements">
                                                 <form class="form-horizontal"
-                                                    action="{{ site_url('sistem/navigation/add_process') }}" method="post">
+                                                    action="<?php echo e(site_url('sistem/navigation/add_process')); ?>" method="post">
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="form-group">
@@ -57,15 +57,17 @@
                                                                     <select name="parent_id" id="single"
                                                                         class="form-control select2-single">
                                                                         <option value='0'>Tidak ada</options>
-                                                                        @foreach ($rs_menu as $menu)
-                                                                        <option value="{{ $menu['nav_id'] }}">
-                                                                            @if ($menu['parent_id'] == 0)
-                                                                            {{ $menu['nav_title'] }}
-                                                                            @else
-                                                                            -- {{ $menu['nav_title'] }}
-                                                                            @endif
+                                                                        <?php $__currentLoopData = $rs_menu; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $menu): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                                        <option value="<?php echo e($menu['nav_id']); ?>">
+                                                                            <?php if($menu['parent_id'] == 0): ?>
+                                                                            <?php echo e($menu['nav_title']); ?>
+
+                                                                            <?php else: ?>
+                                                                            -- <?php echo e($menu['nav_title']); ?>
+
+                                                                            <?php endif; ?>
                                                                         </option>
-                                                                        @endforeach
+                                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -146,7 +148,7 @@
                 </div>
             </div>
 
-            @push('ext_js')
+            <?php $__env->startPush('ext_js'); ?>
             <script>
                 $(document).ready(function () {
                     $(".select2-single").select2({
@@ -156,4 +158,4 @@
                     });
                 });
             </script>
-            @endpush
+            <?php $__env->stopPush(); ?>

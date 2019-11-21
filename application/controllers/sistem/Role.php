@@ -116,7 +116,7 @@ class Role extends MY_Controller {
 				'group_id'	=> $this->input->post('group_id'),
 				'role_nm'	=> $this->input->post('role_nm'), 
 				'role_desc'	=> $this->input->post('role_desc'),
-				'mdb'		=> $this->get_login('user_name'),
+				'mdb'		=> $this->get_login('user_id'),
 				'mdd'		=> date('Y-m-d H:i:s') 
 			);
             // insert
@@ -226,7 +226,7 @@ class Role extends MY_Controller {
 				'group_id'	=> $this->input->post('group_id'),
 				'role_nm'	=> $this->input->post('role_nm'), 
 				'role_desc'	=> $this->input->post('role_desc'),
-				'mdb'		=> $this->get_login('user_name'),
+				'mdb'		=> $this->get_login('user_id'),
 				'mdd'		=> date('Y-m-d H:i:s') 
 			);
 			$where = array(
