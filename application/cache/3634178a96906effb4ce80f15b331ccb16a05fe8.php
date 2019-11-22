@@ -6,7 +6,7 @@
                     <div class="col-lg-8 p-0">
                         <div class="page-header">
                             <div class="page-title">
-                            <h1>{{ $title }}</h1>
+                            <h1><?php echo e($title); ?></h1>
                             </div>
                         </div>
                     </div>
@@ -15,7 +15,7 @@
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
                                     <li><a href="#">Master</a></li>
-                                    <li class="active">{{ $title }}</li>
+                                    <li class="active"><?php echo e($title); ?></li>
                                     <li class="active">Tambah Data</li>
                                 </ol>
                             </div>
@@ -33,20 +33,20 @@
                             <h4>Tambah Data</h4>
                             <div class="card-header-right-icon">
                                 <ul>
-                                    <a href="{{ site_url('master/user') }}" type="button" class="btn btn-default m-b-10 m-l-5">Kembali</a>
+                                    <a href="<?php echo e(site_url('master/user')); ?>" type="button" class="btn btn-default m-b-10 m-l-5">Kembali</a>
                                 </ul>
                             </div>
                         </div>
 
-                        {{-- notif --}}
-                        @include('template/notif')
+                        
+                        <?php echo $__env->make('template/notif', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                         
                         <hr>
                         <div class="card-body" style="margin-top:20px">
                             <div class="card-content">
                             <div class="main">
                                     <div class="horizontal-form-elements">
-                                            <form class="form-horizontal" action="{{ site_url('master/user/add_process') }}" method="post">
+                                            <form class="form-horizontal" action="<?php echo e(site_url('master/user/add_process')); ?>" method="post">
                                                 <div class="row">
                                                     <div class="col-lg-6">
                                                         <div class="form-group">
@@ -74,9 +74,9 @@
                                                             <label class="col-sm-2 control-label">Hak Akses</label>
                                                             <div class="col-sm-10">
                                                             <select name="role_id" class="form-control">
-                                                                @foreach ($roles as $role)
-                                                                <option value="{{ $role['role_id'] }}">{{ $role['role_nm'] }}</option>
-                                                                @endforeach
+                                                                <?php $__currentLoopData = $roles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $role): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                                <option value="<?php echo e($role['role_id']); ?>"><?php echo e($role['role_nm']); ?></option>
+                                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                             </select>
                                                             </div>
                                                         </div>

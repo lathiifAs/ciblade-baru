@@ -103,7 +103,7 @@
                                                     <td>
 
                                                             <a href="{{ site_url('master/user/detail/'.$rs['user_id']) }}" type="button" class="btn btn-info btn-rounded m-b-10 m-l-5" title="Detail"><i class="ti-eye"></i></a>
-                                                            <a href="{{ site_url('master/user/edit/'.$rs['user_id']) }}" class="btn btn-warning btn-rounded m-b-10 m-l-5" title="Edit"><i class="ti-pencil"></i></a>
+                                                            <a href="{{ site_url('master/user/edit/'.$rs['user_id']) }}" class="btn btn-success btn-rounded m-b-10 m-l-5" title="Edit"><i class="ti-pencil"></i></a>
                                                             <a href="{{ site_url('master/user/delete/'.$rs['user_id']) }}" class="btn btn-danger btn-rounded m-b-10 m-l-5" title="Delete"><i class="ti-trash"></i></button>
                                                     </td>
                                                 </tr>

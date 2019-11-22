@@ -6,7 +6,7 @@
                 <div class="col-lg-8 p-0">
                     <div class="page-header">
                         <div class="page-title">
-                            <h1>{{ $title }}</h1>
+                            <h1><?php echo e($title); ?></h1>
                         </div>
                     </div>
                 </div>
@@ -15,7 +15,7 @@
                         <div class="page-title">
                             <ol class="breadcrumb text-right">
                                 <li><a href="#">Sistem</a></li>
-                                <li class="active">{{ $title }}</li>
+                                <li class="active"><?php echo e($title); ?></li>
                                 <li class="active">Delete</li>
                             </ol>
                         </div>
@@ -33,14 +33,14 @@
                                     <h4>Delete</h4>
                                     <div class="card-header-right-icon">
                                         <ul>
-                                            <a href="{{ site_url('sistem/navigation') }}" type="button"
+                                            <a href="<?php echo e(site_url('sistem/navigation')); ?>" type="button"
                                                 class="btn btn-default m-b-10 m-l-5">Kembali</a>
                                         </ul>
                                     </div>
                                 </div>
 
-                                {{-- notif --}}
-                                @include('template/notif')
+                                
+                                <?php echo $__env->make('template/notif', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                                 <div class="alert alert-danger" style="margin-top: 20px">
                                     <label>Data yang telah terhapus tidak akan dapat dikembalikan lagi,<strong> Yakin
                                             hapus data ini?</strong></label>
@@ -51,9 +51,9 @@
                                         <div class="main">
                                             <div class="horizontal-form-elements">
                                                 <form class="form-horizontal"
-                                                    action="{{ site_url('sistem/navigation/delete_process') }}"
+                                                    action="<?php echo e(site_url('sistem/navigation/delete_process')); ?>"
                                                     method="post">
-                                                    <input type="hidden" name="nav_id" value="{{ $result['nav_id'] }}">
+                                                    <input type="hidden" name="nav_id" value="<?php echo e($result['nav_id']); ?>">
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="form-group">
@@ -63,7 +63,7 @@
                                                                 </div>
                                                                 <div class="col-lg-12">
                                                                     <label
-                                                                        class="control-label">{{ $parent_title }}</label>
+                                                                        class="control-label"><?php echo e($parent_title); ?></label>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
@@ -72,7 +72,7 @@
                                                                 </div>
                                                                 <div class="col-lg-12">
                                                                     <label
-                                                                        class="control-label">{{ $result['nav_title'] }}</label>
+                                                                        class="control-label"><?php echo e($result['nav_title']); ?></label>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
@@ -82,7 +82,7 @@
                                                                 </div>
                                                                 <div class="col-lg-12">
                                                                     <label
-                                                                        class="control-label">{{ $result['nav_desc'] }}</label>
+                                                                        class="control-label"><?php echo e($result['nav_desc']); ?></label>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
@@ -92,7 +92,7 @@
                                                                 </div>
                                                                 <div class="col-lg-12">
                                                                     <label
-                                                                        class="control-label">{{ $result['nav_url'] }}</label>
+                                                                        class="control-label"><?php echo e($result['nav_url']); ?></label>
                                                                 </div>
                                                             </div>
                                                         </div><!-- /# column -->
@@ -104,7 +104,7 @@
                                                                 </div>
                                                                 <div class="col-lg-12">
                                                                     <label
-                                                                        class="control-label">{{ $result['nav_no'] }}</label>
+                                                                        class="control-label"><?php echo e($result['nav_no']); ?></label>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
@@ -113,13 +113,13 @@
                                                                         </b></label>
                                                                 </div>
                                                                 <div class="col-lg-12">
-                                                                    @if ($result['active_st'] == 1)
+                                                                    <?php if($result['active_st'] == 1): ?>
                                                                     <label
                                                                         class="control-label"><span class="label label-primary">Ya</span></label>
-                                                                    @else
+                                                                    <?php else: ?>
                                                                     <label
                                                                         class="control-label"><span class="label label-danger">Tidak</span></label>
-                                                                    @endif
+                                                                    <?php endif; ?>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
@@ -128,13 +128,13 @@
                                                                         </b></label>
                                                                 </div>
                                                                 <div class="col-lg-12">
-                                                                    @if ($result['display_st'] == 1)
+                                                                    <?php if($result['display_st'] == 1): ?>
                                                                     <label
                                                                         class="control-label"><span class="label label-primary">Ya</span></label>
-                                                                    @else
+                                                                    <?php else: ?>
                                                                     <label
                                                                         class="control-label"><span class="label label-danger">Tidak</span></label>
-                                                                    @endif
+                                                                    <?php endif; ?>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
@@ -144,7 +144,7 @@
                                                                 </div>
                                                                 <div class="col-lg-12">
                                                                 <label
-                                                                        class="control-label"><i class="{{ $result['nav_icon'] }}"></i></label>
+                                                                        class="control-label"><i class="<?php echo e($result['nav_icon']); ?>"></i></label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -159,7 +159,7 @@
                                                                 </div>
                                                                 <div class="col-lg-12">
                                                                     <label
-                                                                        class="control-label">{{ $result['mdb_name'] }}</label>
+                                                                        class="control-label"><?php echo e($result['mdb_name']); ?></label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -171,7 +171,7 @@
                                                                 </div>
                                                                 <div class="col-lg-12">
                                                                     <label
-                                                                        class="control-label">{{ $result['mdd'] }}</label>
+                                                                        class="control-label"><?php echo e($result['mdd']); ?></label>
                                                                 </div>
                                                             </div>
                                                         </div>

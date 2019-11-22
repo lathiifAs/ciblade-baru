@@ -87,7 +87,7 @@
                                                     <td><?php echo e($rs['role_desc']); ?></td>
                                                     <td>
                                                             <a href="<?php echo e(site_url('sistem/role/detail/'.$rs['role_id'])); ?>" type="button" class="btn btn-info btn-rounded m-b-10 m-l-5" title="Detail"><i class="ti-eye"></i></a>
-                                                            <a href="<?php echo e(site_url('sistem/role/edit/'.$rs['role_id'])); ?>" class="btn btn-warning btn-rounded m-b-10 m-l-5" title="Edit"><i class="ti-pencil"></i></a>
+                                                            <a href="<?php echo e(site_url('sistem/role/edit/'.$rs['role_id'])); ?>" class="btn btn-success btn-rounded m-b-10 m-l-5" title="Edit"><i class="ti-pencil"></i></a>
                                                             <a href="<?php echo e(site_url('sistem/role/delete/'.$rs['role_id'])); ?>" class="btn btn-danger btn-rounded m-b-10 m-l-5" title="Delete"><i class="ti-trash"></i></button>
                                                     </td>
                                                 </tr>

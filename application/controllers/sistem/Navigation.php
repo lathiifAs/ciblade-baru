@@ -131,6 +131,7 @@ class Navigation extends MY_Controller {
 				'nav_desc'		=> $this->input->post('nav_desc'),
 				'nav_url'		=> $this->input->post('nav_url'),
 				'nav_no'		=> $this->input->post('nav_no'),
+				'nav_icon'		=> $this->input->post('nav_icon'),
 				'active_st'		=> $this->input->post('active_st'),
 				'display_st'	=> $this->input->post('display_st'),
 				'mdb'			=> $this->get_login('user_id'),
@@ -151,50 +152,42 @@ class Navigation extends MY_Controller {
         }
     }
 
-	public function detail($role_id='')
+	public function delete($nav_id='')
 	{
 		//cek data
-		if (empty($role_id)) {
+		if (empty($nav_id)) {
 			// default error
 			$this->notif_msg('sistem/navigation', 'Error', 'Data tidak ditemukan !');
 		}
-
-		//parsing
-		$data = [
-			'result' => $this->M_navigation->get_by_id($role_id)
-		];
-		$this->parsing_template('sistem/navigation/detail', $data);
-	}
-
-	public function delete($role_id='')
-	{
-		//cek data
-		if (empty($role_id)) {
-			// default error
-			$this->notif_msg('sistem/navigation', 'Error', 'Data tidak ditemukan !');
+		$menu = $this->M_navigation->get_by_id($nav_id);
+		$parent = $this->M_navigation->get_by_id($menu['parent_id']);
+		if (!empty($parent)) {
+			$parent_title = $parent['nav_title'];
+		}else{
+			$parent_title = '-';
 		}
-
 		//parsing
 		$data = [
-			'result' => $this->M_navigation->get_by_id($role_id)
+			'result' 		=> $menu,
+			'parent_title'	=> $parent_title
 		];
 		$this->parsing_template('sistem/navigation/delete', $data);
 	}
 
 	public function delete_process()
 	{
-		$role_id = $this->input->post('role_id', true);
+		$nav_id = $this->input->post('nav_id', true);
 		//cek data
-		if (empty($role_id)) {
+		if (empty($nav_id)) {
 			// default error
 			$this->notif_msg('sistem/navigation', 'Error', 'Data tidak ditemukan !');
 		}
 
 		$where = array(
-			'role_id' => $role_id
+			'nav_id' => $nav_id
 		);
 		//process
-		if ($this->M_navigation->delete('com_navigation', $where)) {
+		if ($this->M_navigation->delete('com_menu', $where)) {
 			//sukses notif
 			$this->notif_msg('sistem/navigation', 'Sukses', 'Data berhasil dihapus');
 		}else{
@@ -203,23 +196,23 @@ class Navigation extends MY_Controller {
 		}
 	}
 
-	public function edit($role_id='')
+	public function edit($nav_id='')
 	{
 		//default notif
 		$notif = $this->session->userdata('sess_notif');
 		//cek data
-		if (empty($role_id)) {
+		if (empty($nav_id)) {
 			// default error
 			$this->notif_msg('sistem/navigation', 'Error', 'Data tidak ditemukan !');
 		}
-		// get all role
-		$all_group = $this->M_navigation->get_all_group();
+		// get all menu
+		$all_menu = $this->M_navigation->get_all_menu();
 		//parsing
-		$data = [
+		$data = [	
 			'tipe'		=> $notif['tipe'],
 			'pesan' 	=> $notif['pesan'],
-			'result' 	=> $this->M_navigation->get_by_id($role_id),
-			'groups'	=> $all_group	
+			'result' 	=> $this->M_navigation->get_by_id($nav_id),
+			'rs_menu'	=> $all_menu	
 		];
 		//delete session notif
 		$this->session->unset_userdata('sess_notif');
@@ -230,28 +223,38 @@ class Navigation extends MY_Controller {
 	// edit process
 	public function edit_process() {
         // cek input
-        $this->form_validation->set_rules('group_id', 'Group', 'trim|required');
-		$this->form_validation->set_rules('role_nm', 'Nama Role', 'trim|required');
+        $this->form_validation->set_rules('parent_id', 'Induk Menu', 'trim|required');
+		$this->form_validation->set_rules('nav_title', 'Judul Menu', 'required|max_length[50]');
+		$this->form_validation->set_rules('nav_url', 'Alamat Menu', 'trim|required|max_length[100]');
+		$this->form_validation->set_rules('nav_no', 'Urutan', 'trim|required');
+		$this->form_validation->set_rules('active_st', 'Digunakan', 'trim|required');
+		$this->form_validation->set_rules('display_st', 'Ditampilkan', 'trim|required');
 		// check data
-        if (empty($this->input->post('role_id'))) {
+        if (empty($this->input->post('nav_id'))) {
             //sukses notif
 			$this->notif_msg('sistem/navigation', 'Error', 'Data tidak ditemukan');
 		}
-		$role_id = $this->input->post('role_id');
+		$nav_id = $this->input->post('nav_id');
 		// process
         if ($this->form_validation->run() !== FALSE) {
 			$params = array(
-				'group_id'	=> $this->input->post('group_id'),
-				'role_nm'	=> $this->input->post('role_nm'), 
-				'role_desc'	=> $this->input->post('role_desc'),
-				'mdb'		=> $this->get_login('user_name'),
-				'mdd'		=> date('Y-m-d H:i:s') 
+				'parent_id'		=> $this->input->post('parent_id'),
+				'nav_title'		=> $this->input->post('nav_title'), 
+				'nav_desc'		=> $this->input->post('nav_desc'),
+				'nav_url'		=> $this->input->post('nav_url'),
+				'nav_no'		=> $this->input->post('nav_no'),
+				'nav_icon'		=> $this->input->post('nav_icon'),
+				'active_st'		=> $this->input->post('active_st'),
+				'display_st'	=> $this->input->post('display_st'),
+				'mdb'			=> $this->get_login('user_id'),
+				'mdb_name'		=> $this->get_login('user_name'),
+				'mdd'			=> date('Y-m-d H:i:s') 
 			);
 			$where = array(
-				'role_id'	=> $role_id
+				'nav_id'	=> $nav_id
 			);
             // insert
-            if ($this->M_navigation->update('com_navigation', $params, $where)) {
+            if ($this->M_navigation->update('com_menu', $params, $where)) {
 				//sukses notif
 				$this->notif_msg('sistem/navigation/', 'Sukses', 'Data berhasil diedit');
             } else {

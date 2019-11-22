@@ -108,8 +108,8 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                            <a href="{{ site_url('sistem/role/edit/'.$rs['nav_id']) }}" class="btn btn-warning btn-rounded m-b-10 m-l-5" title="Edit">Edit</a>
-                                                            <a href="{{ site_url('sistem/role/delete/'.$rs['nav_id']) }}" class="btn btn-danger btn-rounded m-b-10 m-l-5" title="Delete">Hapus</a>
+                                                            <a href="{{ site_url('sistem/navigation/edit/'.$rs['nav_id']) }}" class="btn btn-success btn-rounded m-b-10 m-l-5" title="Edit"><i class="ti-pencil"></i></a>
+                                                            <a href="{{ site_url('sistem/navigation/delete/'.$rs['nav_id']) }}" class="btn btn-danger btn-rounded m-b-10 m-l-5" title="Delete"><i class="ti-trash"></i></a>
                                                     </td>
                                                 </tr>
                                             @endforeach

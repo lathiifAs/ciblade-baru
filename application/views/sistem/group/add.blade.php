@@ -67,8 +67,10 @@
                                                 </div>
                                                 <hr>
                                                     <div class="card-footer text-right">
-                                                        <button type="submit" class="btn btn-primary btn-rounded m-b-10 m-l-5">Simpan</button>
-                                                        <button type="reset" class="btn btn-dark btn-rounded m-b-10 m-l-5">Reset</button>
+                                                        <button type="submit"
+                                                            class="btn btn-success btn-rounded m-b-10 m-l-5"><i class="ti-check"></i> Simpan</button>
+                                                        <button type="reset"
+                                                            class="btn btn-dark btn-rounded m-b-10 m-l-5"><i class="ti-back-left"></i> Reset</button>
                                                     </div>
                                             </form>
                                     </div>

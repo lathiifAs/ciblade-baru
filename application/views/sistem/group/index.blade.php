@@ -80,7 +80,7 @@
                                                     <td>{{ $rs['group_desc'] }}</td>
                                                     <td>
                                                             <a href="{{ site_url('sistem/group/detail/'.$rs['group_id']) }}" type="button" class="btn btn-info btn-rounded m-b-10 m-l-5" title="Detail"><i class="ti-eye"></i></a>
-                                                            <a href="{{ site_url('sistem/group/edit/'.$rs['group_id']) }}" class="btn btn-warning btn-rounded m-b-10 m-l-5" title="Edit"><i class="ti-pencil"></i></a>
+                                                            <a href="{{ site_url('sistem/group/edit/'.$rs['group_id']) }}" class="btn btn-success btn-rounded m-b-10 m-l-5" title="Edit"><i class="ti-pencil"></i></a>
                                                             <a href="{{ site_url('sistem/group/delete/'.$rs['group_id']) }}" class="btn btn-danger btn-rounded m-b-10 m-l-5" title="Delete"><i class="ti-trash"></i></button>
                                                     </td>
                                                 </tr>
