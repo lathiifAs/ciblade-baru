@@ -22,8 +22,9 @@
                                 <a class="sidebar-sub-toggle"><i class="ti-settings"></i> Sistem <span class="sidebar-collapse-icon ti-angle-down"></span></a>
                                 <ul>
                                     <li><a href="{{ site_url('sistem/navigation') }}"> Menu Navigasi</a></li>
-                                    <li><a href="{{ site_url('sistem/role') }}">Role</a></li>
                                     <li><a href="{{ site_url('sistem/group') }}">Group</a></li>
+                                    <li><a href="{{ site_url('sistem/role') }}">Role</a></li>
+                                    <li><a href="{{ site_url('sistem/permission') }}">Hak Akses</a></li>
                                 </ul>
                         </li>
                     @endif
