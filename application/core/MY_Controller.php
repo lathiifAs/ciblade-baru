@@ -208,7 +208,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $url_menu .= '/' . $this->uri->segment(3);
             }
             $url_menu = trim($url_menu, '/');
-            $url_menu = (empty($url_menu)) ? $this->com_user('default_page') : $url_menu;
+            $url_menu = (empty($url_menu)) ? $this->notif_msg('welcome', 'Error', 'Data tidak memiliki akses ke menu tersebut'): $url_menu;
             
             $result = $this->M_site->get_current_page($url_menu);
             

@@ -41,36 +41,51 @@ class M_permission extends CI_Model {
         return array();
     }
 
-        //get all menu
-        public function get_all_menu()
-        {
-            $this->db->select('*');
-            $this->db->from('com_menu');
-            $this->db->order_by('nav_id', 'ASC');
-            $this->db->order_by('nav_no', 'ASC');
-            $query = $this->db->get();
-            if ($query->num_rows() > 0) {
-              $result = $query->result_array();
-              $query->free_result();
-              return $result;
-            }
+    // get detail role by id
+    function get_detail_role_by_id($id_role) {
+        $sql = "SELECT b.group_name, a.* 
+                FROM com_role a
+                INNER JOIN com_group b ON a.group_id = b.group_id
+                WHERE role_id = ?";
+        $query = $this->db->query($sql, $id_role);
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            $query->free_result();
+            return $result;
+        } else {
             return array();
         }
+    }
 
-
-    //get by id
-    public function get_by_id($nav_id)
-    {
-        $this->db->select('*');
-        $this->db->from('com_menu');
-        $this->db->where('nav_id', $nav_id);
-        $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-          $result = $query->row_array();
+    // get all menu by parent
+    function get_all_menu_selected_by_parent($params) {
+      $sql = "SELECT a.*, b.role_id, b.role_tp
+              FROM com_menu a
+              LEFT JOIN (SELECT * FROM com_role_menu WHERE role_id = ?) b ON a.nav_id = b.nav_id
+              WHERE parent_id = ?
+              ORDER BY nav_no ASC";
+      $query = $this->db->query($sql, $params);
+      if ($query->num_rows() > 0) {
+          $result = $query->result_array();
           $query->free_result();
           return $result;
-        }
-        return array();
+      } else {
+          return array();
+      }
+    }
+
+    // delete role menu
+    function delete_role_menu($params) {
+        $sql = "DELETE a.* FROM com_role_menu a
+                INNER JOIN com_menu b ON a.nav_id = b.nav_id
+                WHERE role_id = ?";
+        return $this->db->query($sql, $params);
+    }
+
+      // insert role menu
+    function insert_role_menu($params) {
+        $sql = "INSERT INTO com_role_menu (role_id, nav_id, role_tp) VALUES (?, ?, ?)";
+        return $this->db->query($sql, $params);
     }
 
     //count all
@@ -85,27 +100,6 @@ class M_permission extends CI_Model {
         }
         return 0;
     }
-
-    //insert
-    public function insert($table ,$params)
-    {
-      return $this->db->insert($table, $params);
-    }
-
-    //delete
-    public function delete($table ,$where)
-    {
-      $this->db->where($where);
-      return $this->db->delete($table);
-    }
-
-    //update
-    public function update($table, $params, $where)
-    {
-      $this->db->set($params);
-      $this->db->where($where);
-      return $this->db->update($table);
-    }
-  
     
+
 }

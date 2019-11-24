@@ -33,7 +33,7 @@
                                     <h4>Edit</h4>
                                     <div class="card-header-right-icon">
                                         <ul>
-                                            <a href="<?php echo e(site_url('sistem/navigation')); ?>" type="button"
+                                            <a href="<?php echo e(site_url('sistem/permission')); ?>" type="button"
                                                 class="btn btn-default m-b-10 m-l-5">Kembali</a>
                                         </ul>
                                     </div>
@@ -48,52 +48,23 @@
                                         <div class="main">
                                             <div class="horizontal-form-elements">
                                                 <form class="form-horizontal"
-                                                    action="<?php echo e(site_url('sistem/navigation/edit_process')); ?>"
+                                                    action="<?php echo e(site_url('sistem/permission/edit_process')); ?>"
                                                     method="post">
-                                                    <input type="hidden" name="nav_id" value="<?php echo e($result['role_id']); ?>">
+                                                    <input type="hidden" name="role_id" value="<?php echo e($result['role_id']); ?>">
                                                     <table class="table table-responsive table-striped">
                                                         <thead>
                                                             <tr>
-                                                                <th class="text-align text-center">No.</th>
-                                                                <th class="text-align text-center">Judul Navigasi</th>
-                                                                <th class="text-align text-center">URL Navigasi</th>
-                                                                <th class="text-align text-center">Digunakan</th>
-                                                                <th class="text-align text-center">Ditampilkan</th>
-                                                                <th class="text-align text-center"></th>
-                                                                <th  class="text-align text-center"> <input type="checkbox"> Pilih Semua</th>
+                                                                <th  class="text-align text-center" width="10%">  <input type="checkbox" id="checked-all-menu" class="checked-all-menu">  Semua</th>
+                                                                <th class="text-align text-center" width="50%">Judul Navigasi</th>
+                                                                <th class="text-align text-center" width="10%">Create</th>
+                                                                <th class="text-align text-center" width="10%">Read</th>
+                                                                <th class="text-align text-center" width="10%">Update</th>
+                                                                <th class="text-align text-center" width="10%">Delete</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <?php $__currentLoopData = $rs_menu; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rs): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                            <tr>
-                                                                <th class="text-align text-center"> <?php echo e($no++); ?> </th>
-                                                                <td>
-                                                                    <?php if($rs['parent_id'] == 0): ?>
-                                                                    <?php echo e($rs['nav_title']); ?>
+                                                           <?php echo $list_menu; ?>
 
-                                                                    <?php else: ?>
-                                                                    -- <?php echo e($rs['nav_title']); ?>
-
-                                                                    <?php endif; ?>
-                                                                </td>
-                                                                <td><?php echo e($rs['nav_url']); ?></td>
-                                                                <td class="text-align text-center">
-                                                                    <?php if($rs['active_st'] == 1): ?>
-                                                                    <span class="label label-primary">Ya</span>
-                                                                    <?php else: ?>
-                                                                    <span class="label label-danger">Tidak</span>
-                                                                    <?php endif; ?>
-                                                                </td>
-                                                                <td class="text-align text-center">
-                                                                    <?php if($rs['display_st'] == 1): ?>
-                                                                    <span class="label label-primary">Ya</span>
-                                                                    <?php else: ?>
-                                                                    <span class="label label-danger">Tidak</span>
-                                                                    <?php endif; ?>
-                                                                </td>
-                                                                <td> <input type="checkbox"> </td>
-                                                            </tr>
-                                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                         </tbody>
                                                     </table>
                                                     <hr>
@@ -150,6 +121,28 @@
                         width: '100%',
                         containerCssClass: ':all:'
                     });
+                });
+            </script>
+
+            <script type="text/javascript">
+                $(function () {
+                    $(".checked-all").click(function () {
+                        var status = $(this).is(":checked");
+                        if (status === true) {
+                            $(".r" + $(this).val()).prop('checked', true);
+                        } else {
+                            $(".r" + $(this).val()).prop('checked', false);
+                        }
+                    });
+                    $(".checked-all-menu").click(function () {
+                        var status = $(this).is(":checked");
+                        if (status === true) {
+                            $(".r-menu").prop('checked', true);
+                        } else {
+                            $(".r-menu").prop('checked', false);
+                        }
+                    });
+                    $(".select-2").select2();
                 });
             </script>
             <?php $__env->stopPush(); ?>
