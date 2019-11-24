@@ -30,10 +30,6 @@ class Group extends MY_Controller {
 		//parsing js url
 		$this->parsing_js([
 			// 'assets/js/jquery.smartWizard.js'
-			// 'assets/vendor/jquery-validation/dist/jquery.validate.min.js',
-			// 'assets/vendor/jquery-validation/dist/additional-methods.min.js',
-			// 'assets/vendor/jquery-steps/jquery.steps.min.js',
-			// 'assets/costum/js/main.js'
 		   ]);
 		//parsing css url
 		$this->parsing_css([
@@ -115,6 +111,7 @@ class Group extends MY_Controller {
 				'group_name'	=> $this->input->post('group_name'), 
 				'group_desc'	=> $this->input->post('group_desc'),
 				'mdb'			=> $this->get_login('user_id'),
+				'mdb_name'		=> $this->get_login('user_name'),
 				'mdd'			=> date('Y-m-d H:i:s') 
 			);
             // insert
@@ -153,7 +150,6 @@ class Group extends MY_Controller {
 			// default error
 			$this->notif_msg('sistem/group', 'Error', 'Data tidak ditemukan !');
 		}
-
 		//parsing
 		$data = [
 			'result' => $this->M_group->get_by_id($group_id)
@@ -220,7 +216,6 @@ class Group extends MY_Controller {
 			$params = array(
 				'group_name'		=> $this->input->post('group_name'), 
 				'group_desc'		=> $this->input->post('group_desc'),
-				'mdb'				=> $this->get_login('user_id'),
 				'mdd'				=> date('Y-m-d H:i:s') 
 			);
 			$where = array(

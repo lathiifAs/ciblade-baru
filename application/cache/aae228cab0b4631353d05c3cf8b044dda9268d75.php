@@ -6,7 +6,7 @@
                 <div class="col-lg-8 p-0">
                     <div class="page-header">
                         <div class="page-title">
-                        <h1>{{ $title }}</h1>
+                        <h1><?php echo e($title); ?></h1>
                         </div>
                     </div>
                 </div>
@@ -15,7 +15,7 @@
                         <div class="page-title">
                             <ol class="breadcrumb text-right">
                                 <li><a href="#">Sistem</a></li>
-                                <li class="active">{{ $title }}</li>
+                                <li class="active"><?php echo e($title); ?></li>
                                 <li class="active">Delete</li>
                             </ol>
                         </div>
@@ -33,13 +33,13 @@
                         <h4>Delete</h4>
                         <div class="card-header-right-icon">
                             <ul>
-                                <a href="{{ site_url('sistem/role') }}" type="button" class="btn btn-default m-b-10 m-l-5">Kembali</a>
+                                <a href="<?php echo e(site_url('sistem/group')); ?>" type="button" class="btn btn-default m-b-10 m-l-5">Kembali</a>
                             </ul>
                         </div>
                     </div>
 
-                    {{-- notif --}}
-                    @include('template/notif')
+                    
+                    <?php echo $__env->make('template/notif', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                     <div class="alert alert-danger" style="margin-top: 20px">
                             <label >Data yang telah terhapus tidak akan dapat dikembalikan lagi,<strong> Yakin hapus data ini?</strong></label>
                     </div>
@@ -48,8 +48,8 @@
                         <div class="card-content">
                         <div class="main">
                                 <div class="horizontal-form-elements">
-                                    <form class="form-horizontal" action="{{ site_url('sistem/role/delete_process') }}" method="post">
-                                        <input type="hidden" name="role_id" value="{{ $result['role_id'] }}">
+                                    <form class="form-horizontal" action="<?php echo e(site_url('sistem/group/delete_process')); ?>" method="post">
+                                        <input type="hidden" name="group_id" value="<?php echo e($result['group_id']); ?>">
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
@@ -57,16 +57,8 @@
                                                                 <label class="control-label"><b> Group </b></label>
                                                         </div>
                                                         <div class="col-lg-12">
-                                                                <label class="control-label">{{ $result['group_name'] }}</label>
+                                                                <label class="control-label"><?php echo e($result['group_name']); ?></label>
                                                         </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                            <div class="col-lg-12">
-                                                                    <label class="control-label"><b> Role </b></label>
-                                                            </div>
-                                                            <div class="col-lg-12">
-                                                                    <label class="control-label">{{ $result['role_nm'] }}</label>
-                                                            </div>
                                                     </div>
                                                 </div><!-- /# column -->
                                                 <div class="col-lg-6">
@@ -75,7 +67,7 @@
                                                                 <label class="control-label"><b> Deskripsi </b></label>
                                                         </div>
                                                         <div class="col-lg-12">
-                                                                <label class="control-label">{{ $result['role_desc'] }}</label>
+                                                                <label class="control-label"><?php echo e($result['group_desc']); ?></label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -88,7 +80,7 @@
                                                                     <label class="control-label"><b> Created by </b></label>
                                                             </div>
                                                             <div class="col-lg-12">
-                                                                    <label class="control-label">{{ $result['mdb_name'] }}</label>
+                                                                    <label class="control-label"><?php echo e($result['mdb_name']); ?></label>
                                                             </div>
                                                     </div>
                                                 </div>
@@ -98,7 +90,7 @@
                                                                     <label class="control-label"><b> Date update </b></label>
                                                             </div>
                                                             <div class="col-lg-12">
-                                                                    <label class="control-label">{{ $result['mdd'] }}</label>
+                                                                    <label class="control-label"><?php echo e($result['mdd']); ?></label>
                                                             </div>
                                                     </div>
                                                 </div>

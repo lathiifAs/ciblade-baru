@@ -125,7 +125,7 @@ class M_user extends CI_Model {
     //get by id
     public function get_by_id($user_id)
     {
-        $this->db->select('com_user.user_id, com_user.user_name, com_user.user_mail, com_user.user_st, com_user.mdb, com_role.role_id ,com_user.mdd, com_role.role_nm, user.nama, user.alamat, user.jns_kelamin');
+        $this->db->select('com_user.user_id, com_user.mdb_name, com_user.user_name, com_user.user_mail, com_user.user_st, com_user.mdb, com_role.role_id ,com_user.mdd, com_role.role_nm, user.nama, user.alamat, user.jns_kelamin');
         $this->db->from('com_user');
         $this->db->join('user', 'user.user_id = com_user.user_id', 'left');
         $this->db->join('com_role_user', 'com_role_user.user_id = user.user_id', 'left');

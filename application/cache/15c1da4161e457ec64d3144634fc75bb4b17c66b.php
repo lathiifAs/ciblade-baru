@@ -68,7 +68,7 @@
                                             <tr>
                                                 <th class="text-align text-center">No.</th>
                                                 <th class="text-align text-center">Group</th>
-                                                <th class="text-align text-center">Dekripsi</th>
+                                                <th class="text-align text-center">Deskripsi</th>
                                                 <th></th>
                                             </tr>
                                         </thead>

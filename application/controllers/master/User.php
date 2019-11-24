@@ -145,6 +145,7 @@ class User extends MY_Controller {
 				'user_st'	=> $this->input->post('user_st'), 
 				'user_mail'	=> $this->input->post('user_mail'),
 				'mdb'		=> $this->get_login('user_id'),
+				'mdb_name'	=> $this->get_login('user_name'),
 				'mdd'		=> date('Y-m-d H:i:s') 
 			);
             // insert
@@ -280,7 +281,6 @@ class User extends MY_Controller {
 					'user_key' 	=> $password_key, 
 					'user_st'	=> $this->input->post('user_st'), 
 					'user_mail'	=> $this->input->post('user_mail'),
-					'mdb'		=> $this->get_login('user_id'),
 					'mdd'		=> date('Y-m-d H:i:s') 
 				);
 			}else{

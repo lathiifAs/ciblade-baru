@@ -127,7 +127,7 @@
                                                                         <label class="control-label"><b> Created by </b></label>
                                                                 </div>
                                                                 <div class="col-lg-12">
-                                                                        <label class="control-label">{{ $result['mdb'] }}</label>
+                                                                        <label class="control-label">{{ $result['mdb_name'] }}</label>
                                                                 </div>
                                                         </div>
                                                     </div>
