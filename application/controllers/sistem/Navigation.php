@@ -29,12 +29,14 @@ class Navigation extends MY_Controller {
 		--------------------------------------------------------*/
 		//parsing js url
 		$this->parsing_js([
-			'assets/plugin/select2/select2.full.min.js'
+			'assets/plugin/select2/select2.full.min.js',
+			'assets/plugin/bootstrap4-toggle-3.6.1/js/bootstrap4-toggle.min.js',
 		]);
 		//parsing css url
 		$this->parsing_css([
 			'assets/plugin/select2/select2.min.css',
-			'assets/plugin/select2/select2-bootstrap.min.css'
+			'assets/plugin/select2/select2-bootstrap.min.css',
+			'assets/plugin/bootstrap4-toggle-3.6.1/css/bootstrap4-toggle.min.css'
 		]);
 		//parsing data tanpa template
 		$this->parsing([
@@ -122,6 +124,11 @@ class Navigation extends MY_Controller {
 		$this->form_validation->set_rules('display_st', 'Ditampilkan', 'trim|required');
 		//get last id 
 		$last_id = $this->M_navigation->get_last_id();
+		if ($this->input->post('client_st') == 'on') {
+			$client_st = '1';
+		}else{
+			$client_st = '0';
+		}
         // process
         if ($this->form_validation->run() !== FALSE) {
 			$params = array(
@@ -133,6 +140,7 @@ class Navigation extends MY_Controller {
 				'nav_no'		=> $this->input->post('nav_no'),
 				'nav_icon'		=> $this->input->post('nav_icon'),
 				'active_st'		=> $this->input->post('active_st'),
+				'client_st'		=> $client_st,
 				'display_st'	=> $this->input->post('display_st'),
 				'mdb'			=> $this->get_login('user_id'),
 				'mdb_name'		=> $this->get_login('user_name'),
@@ -234,6 +242,11 @@ class Navigation extends MY_Controller {
             //sukses notif
 			$this->notif_msg('sistem/navigation', 'Error', 'Data tidak ditemukan');
 		}
+		if ($this->input->post('client_st') == 'on') {
+			$client_st = '1';
+		}else{
+			$client_st = '0';
+		}
 		$nav_id = $this->input->post('nav_id');
 		// process
         if ($this->form_validation->run() !== FALSE) {
@@ -244,6 +257,7 @@ class Navigation extends MY_Controller {
 				'nav_url'		=> $this->input->post('nav_url'),
 				'nav_no'		=> $this->input->post('nav_no'),
 				'nav_icon'		=> $this->input->post('nav_icon'),
+				'client_st'		=> $client_st,
 				'active_st'		=> $this->input->post('active_st'),
 				'display_st'	=> $this->input->post('display_st'),
 				'mdb'			=> $this->get_login('user_id'),

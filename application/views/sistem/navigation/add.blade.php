@@ -48,7 +48,8 @@
                                         <div class="main">
                                             <div class="horizontal-form-elements">
                                                 <form class="form-horizontal"
-                                                    action="{{ site_url('sistem/navigation/add_process') }}" method="post">
+                                                    action="{{ site_url('sistem/navigation/add_process') }}"
+                                                    method="post">
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="form-group">
@@ -57,7 +58,7 @@
                                                                     <select name="parent_id" id="single"
                                                                         class="form-control select2-single">
                                                                         <option value='0'>Tidak ada</options>
-                                                                        @foreach ($rs_menu as $menu)
+                                                                            @foreach ($rs_menu as $menu)
                                                                         <option value="{{ $menu['nav_id'] }}">
                                                                             @if ($menu['parent_id'] == 0)
                                                                             {{ $menu['nav_title'] }}
@@ -127,13 +128,22 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div class="col-lg-12" style="margin-top:50px">
+                                                            <div class="form-group">
+                                                                <label style="margin-right:30px">Gunakan sebagai menu Client</label>
+                                                                <input name="client_st" type="checkbox" data-toggle="toggle"
+                                                                        data-onstyle="primary">
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <hr>
                                                     <div class="card-footer text-right">
                                                         <button type="submit"
-                                                            class="btn btn-success btn-rounded m-b-10 m-l-5"><i class="ti-check"></i> Simpan</button>
+                                                            class="btn btn-success btn-rounded m-b-10 m-l-5"><i
+                                                                class="ti-check"></i> Simpan</button>
                                                         <button type="reset"
-                                                            class="btn btn-dark btn-rounded m-b-10 m-l-5"><i class="ti-back-left"></i> Reset</button>
+                                                            class="btn btn-dark btn-rounded m-b-10 m-l-5"><i
+                                                                class="ti-back-left"></i> Reset</button>
                                                     </div>
                                                 </form>
                                             </div>

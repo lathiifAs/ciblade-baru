@@ -62,7 +62,7 @@ class M_permission extends CI_Model {
       $sql = "SELECT a.*, b.role_id, b.role_tp
               FROM com_menu a
               LEFT JOIN (SELECT * FROM com_role_menu WHERE role_id = ?) b ON a.nav_id = b.nav_id
-              WHERE parent_id = ?
+              WHERE parent_id = ? AND a.client_st = '0'
               ORDER BY nav_no ASC";
       $query = $this->db->query($sql, $params);
       if ($query->num_rows() > 0) {
@@ -78,7 +78,7 @@ class M_permission extends CI_Model {
     function delete_role_menu($params) {
         $sql = "DELETE a.* FROM com_role_menu a
                 INNER JOIN com_menu b ON a.nav_id = b.nav_id
-                WHERE role_id = ?";
+                WHERE role_id = ? AND b.client_st = '0'";
         return $this->db->query($sql, $params);
     }
 
