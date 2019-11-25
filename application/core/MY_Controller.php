@@ -239,7 +239,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 
             } else {
                 // tidak memiliki authority
-                echo "Anda tidak memiliki authority !";exit;
+                // redirect('sistem/Authorize');
             }
         }
         
@@ -249,8 +249,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             if (!isset($this->role_tp[$rule]) or $this->role_tp[$rule] != "1") {
                 // redirect to forbiden access
                 // tidak memiliki authority
-                echo "Anda tidak memiliki authority !";
-                exit;
+                redirect('sistem/Authorize');
             }
         }
 
@@ -287,17 +286,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <a  href="'.$url_parent.'" '.$sub_toggle.'><i class="'.$rec['nav_icon'].'"></i>'.$rec['nav_title'] . $data_toggle .'</a>
                             '.$child.'
                     </li>';
-                    
-                    // // parse
-                    // $html .= '
-                    // <li class="slide">
-                    //   <a class="side-menu__item" data-toggle="'.$data_toggle.'" href="$url_parent" title="'.$rec['nav_desc'].'">
-                    //     <i class="side-menu__icon '.$rec['nav_icon'].'"></i>
-                    //     <span class="side-menu__label">'.$rec['nav_title'].'</span>
-                    //     '.$parent_class_caret.'
-                    //   </a>
-                    //   '.$child.'
-                    // </li>';
+
                 }
             }
             // output
