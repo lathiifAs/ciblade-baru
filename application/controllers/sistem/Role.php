@@ -44,6 +44,8 @@ class Role extends MY_Controller {
 
 	public function index()
 	{
+		// set page rules
+		$this->_set_page_rule("R");
 		//default notif
 		$notif = $this->session->userdata('sess_notif');
 
@@ -87,6 +89,8 @@ class Role extends MY_Controller {
 
 	public function add($notif='')
 	{
+		// set page rules
+		$this->_set_page_rule("C");
 		//default notif
 		$notif = $this->session->userdata('sess_notif');
 		// get all role
@@ -104,6 +108,8 @@ class Role extends MY_Controller {
 
 	 // add process
 	 public function add_process() {
+		// set page rules
+		$this->_set_page_rule("C");
         // cek input
         $this->form_validation->set_rules('group_id', 'Group', 'trim|required');
 		$this->form_validation->set_rules('role_nm', 'Nama Role', 'trim|required');
@@ -136,6 +142,8 @@ class Role extends MY_Controller {
 
 	public function detail($role_id='')
 	{
+		// set page rules
+		$this->_set_page_rule("R");
 		//cek data
 		if (empty($role_id)) {
 			// default error
@@ -151,6 +159,8 @@ class Role extends MY_Controller {
 
 	public function delete($role_id='')
 	{
+		// set page rules
+		$this->_set_page_rule("D");
 		//cek data
 		if (empty($role_id)) {
 			// default error
@@ -166,6 +176,8 @@ class Role extends MY_Controller {
 
 	public function delete_process()
 	{
+		// set page rules
+		$this->_set_page_rule("D");
 		$role_id = $this->input->post('role_id', true);
 		//cek data
 		if (empty($role_id)) {
@@ -188,6 +200,8 @@ class Role extends MY_Controller {
 
 	public function edit($role_id='')
 	{
+		// set page rules
+		$this->_set_page_rule("U");
 		//default notif
 		$notif = $this->session->userdata('sess_notif');
 		//cek data
@@ -212,6 +226,8 @@ class Role extends MY_Controller {
 
 	// edit process
 	public function edit_process() {
+		// set page rules
+		$this->_set_page_rule("U");
         // cek input
         $this->form_validation->set_rules('group_id', 'Group', 'trim|required');
 		$this->form_validation->set_rules('role_nm', 'Nama Role', 'trim|required');

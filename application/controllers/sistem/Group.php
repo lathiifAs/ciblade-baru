@@ -45,6 +45,8 @@ class Group extends MY_Controller {
 
 	public function index()
 	{
+		// set page rules
+		$this->_set_page_rule("R");
 		//default notif
 		$notif = $this->session->userdata('sess_notif');
 
@@ -85,6 +87,8 @@ class Group extends MY_Controller {
 
 	public function add($notif='')
 	{
+		// set page rules
+		$this->_set_page_rule("C");
 		//default notif
 		$notif = $this->session->userdata('sess_notif');
 		$data = [
@@ -99,6 +103,8 @@ class Group extends MY_Controller {
 
 	 // add process
 	 public function add_process() {
+		// set page rules
+		$this->_set_page_rule("C");
         // cek input
 		$this->form_validation->set_rules('group_name', 'Nama group', 'trim|required');
 		$this->form_validation->set_rules('group_desc', 'Deskripsi group', 'trim|required');
@@ -130,6 +136,8 @@ class Group extends MY_Controller {
 
 	public function detail($group_id='')
 	{
+		// set page rules
+		$this->_set_page_rule("R");
 		//cek data
 		if (empty($group_id)) {
 			// default error
@@ -145,6 +153,8 @@ class Group extends MY_Controller {
 
 	public function delete($group_id='')
 	{
+		// set page rules
+		$this->_set_page_rule("D");
 		//cek data
 		if (empty($group_id)) {
 			// default error
@@ -159,6 +169,8 @@ class Group extends MY_Controller {
 
 	public function delete_process()
 	{
+		// set page rules
+		$this->_set_page_rule("D");
 		$group_id = $this->input->post('group_id', true);
 		//cek data
 		if (empty($group_id)) {
@@ -181,6 +193,8 @@ class Group extends MY_Controller {
 
 	public function edit($group_id='')
 	{
+		// set page rules
+		$this->_set_page_rule("U");
 		//default notif
 		$notif = $this->session->userdata('sess_notif');
 		//cek data
@@ -202,6 +216,8 @@ class Group extends MY_Controller {
 
 	// edit process
 	public function edit_process() {
+		// set page rules
+		$this->_set_page_rule("U");
         // cek input
         $this->form_validation->set_rules('group_id', 'Id Group', 'trim|required');
 		$this->form_validation->set_rules('group_name', 'Nama group', 'trim|required');

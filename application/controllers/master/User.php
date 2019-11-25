@@ -49,6 +49,8 @@ class User extends MY_Controller {
 
 	public function index()
 	{
+		// set page rules
+		$this->_set_page_rule("R");
 		//default notif
 		$notif = $this->session->userdata('sess_notif');
 
@@ -89,6 +91,8 @@ class User extends MY_Controller {
 
 	public function add($notif='')
 	{
+		// set page rules
+		$this->_set_page_rule("C");
 		//default notif
 		$notif = $this->session->userdata('sess_notif');
 		// get all role
@@ -106,6 +110,8 @@ class User extends MY_Controller {
 
 	 // add process
 	 public function add_process() {
+		// set page rules
+		$this->_set_page_rule("C");
         // cek input
         $this->form_validation->set_rules('user_mail', 'User Email', 'trim|required|valid_email|max_length[50]');
 		$this->form_validation->set_rules('user_name', 'User Name', 'trim|required|max_length[50]');
@@ -178,6 +184,8 @@ class User extends MY_Controller {
 
 	public function detail($user_id='')
 	{
+		// set page rules
+		$this->_set_page_rule("R");
 		//cek data
 		if (empty($user_id)) {
 			// default error
@@ -193,6 +201,8 @@ class User extends MY_Controller {
 
 	public function delete($user_id='')
 	{
+		// set page rules
+		$this->_set_page_rule("D");
 		//cek data
 		if (empty($user_id)) {
 			// default error
@@ -208,6 +218,8 @@ class User extends MY_Controller {
 
 	public function delete_process()
 	{
+		// set page rules
+		$this->_set_page_rule("D");
 		$user_id = $this->input->post('user_id', true);
 		//cek data
 		if (empty($user_id)) {
@@ -230,6 +242,8 @@ class User extends MY_Controller {
 
 	public function edit($user_id='')
 	{
+		// set page rules
+		$this->_set_page_rule("U");
 		//default notif
 		$notif = $this->session->userdata('sess_notif');
 		//cek data
@@ -254,6 +268,8 @@ class User extends MY_Controller {
 
 	// edit process
 	public function edit_process() {
+		// set page rules
+		$this->_set_page_rule("U");
         // cek input
         $this->form_validation->set_rules('user_mail', 'User Email', 'trim|required|valid_email|max_length[50]');
 		$this->form_validation->set_rules('user_name', 'User Name', 'trim|required|max_length[50]');

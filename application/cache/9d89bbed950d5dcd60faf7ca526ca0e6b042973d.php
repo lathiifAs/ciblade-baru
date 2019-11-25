@@ -75,6 +75,7 @@
                                                 <th class="text-align text-center">No.</th>
                                                 <th class="text-align text-center">Judul Navigasi</th>
                                                 <th class="text-align text-center">URL Navigasi</th>
+                                                <th class="text-align text-center">Menu Client</th>
                                                 <th class="text-align text-center">Digunakan</th>
                                                 <th class="text-align text-center">Ditampilkan</th>
                                                 <th class="text-align text-center"></th>
@@ -94,6 +95,13 @@
                                                     <?php endif; ?>
                                                     </td>
                                                     <td><?php echo e($rs['nav_url']); ?></td>
+                                                    <td class="text-align text-center">
+                                                        <?php if($rs['client_st'] == 1): ?>
+                                                        <span class="label label-primary">Ya</span>
+                                                        <?php else: ?>
+                                                        <span class="label label-danger">Tidak</span>
+                                                        <?php endif; ?>
+                                                    </td>
                                                     <td class="text-align text-center">
                                                         <?php if($rs['active_st'] == 1): ?>
                                                         <span class="label label-primary">Ya</span>

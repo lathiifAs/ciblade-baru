@@ -45,6 +45,8 @@ class Permission extends MY_Controller {
 
 	public function index()
 	{
+		// set page rules
+		$this->_set_page_rule("R");
 		//default notif
 		$notif = $this->session->userdata('sess_notif');
 		//load library and config pagination
@@ -100,6 +102,8 @@ class Permission extends MY_Controller {
 
 	public function edit($role_id='')
 	{
+		// set page rules
+		$this->_set_page_rule("U");
 		//default notif
 		$notif = $this->session->userdata('sess_notif');
 		$result = $this->M_permission->get_detail_role_by_id($role_id);
@@ -132,6 +136,8 @@ class Permission extends MY_Controller {
 
 	// edit process
 	public function edit_process() {
+		// set page rules
+		$this->_set_page_rule("U");
         // cek input
         $this->form_validation->set_rules('role_id', 'Role', 'trim|required');
 		// check data

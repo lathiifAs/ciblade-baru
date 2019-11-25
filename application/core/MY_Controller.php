@@ -23,6 +23,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             parent::__construct();
             $this->load->model('sistem/M_site');
             $this->blade = new PhpBlade($this->views, $this->cache);
+
+            // display current page
+            self::_display_current_page();
+            //display authorize
+            self::_check_authority();
+            // display sidebar navigation
+            self::_display_sidebar_navigation();
+ 
         }
 
         public function front_render($view_name,$data,$head){
@@ -43,13 +51,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }else{
                 $u_login = array('user_login' => $this->session->userdata('com_user'));
             }
-
-            // display current page
-            self::_display_current_page();
-            //display authorize
-            self::_check_authority();
-            // display sidebar navigation
-            self::_display_sidebar_navigation();
 
             $content = ['content' => $content];
             //get semget url
@@ -208,18 +209,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $url_menu .= '/' . $this->uri->segment(3);
             }
             $url_menu = trim($url_menu, '/');
-            $url_menu = (empty($url_menu)) ? $this->notif_msg('welcome', 'Error', 'Data tidak memiliki akses ke menu tersebut'): $url_menu;
-            
+            $url_menu = (empty($url_menu)) ? 'welcome' : $url_menu;
             $result = $this->M_site->get_current_page($url_menu);
-            
-            // print_r($result);die();
             if (!empty($result)) {
                 $this->parsing_navbar([
                     'page' => $result
                 ]);
                 $this->nav_id = $result['nav_id'];
                 $this->parent_id = $result['parent_id'];
-            
             }
         }
 
@@ -239,9 +236,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $this->role_tp[$rule] = $N;
                     $i++;
                 }
+                
             } else {
                 // tidak memiliki authority
                 echo "Anda tidak memiliki authority !";exit;
+            }
+        }
+        
+        // set rule per pages
+        protected function _set_page_rule($rule) {
+            
+            if (!isset($this->role_tp[$rule]) or $this->role_tp[$rule] != "1") {
+                // redirect to forbiden access
+                // tidak memiliki authority
+                echo "Anda tidak memiliki authority !";
+                exit;
             }
         }
 

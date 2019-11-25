@@ -46,6 +46,8 @@ class Navigation extends MY_Controller {
 
 	public function index()
 	{
+		// set page rules
+		$this->_set_page_rule("R");
 		//default notif
 		$notif = $this->session->userdata('sess_notif');
 		//load library and config pagination
@@ -99,6 +101,8 @@ class Navigation extends MY_Controller {
 
 	public function add($notif='')
 	{
+		// set page rules
+		$this->_set_page_rule("C");
 		//default notif
 		$notif = $this->session->userdata('sess_notif');
 		$menu = $this->M_navigation->get_all_menu();
@@ -115,6 +119,8 @@ class Navigation extends MY_Controller {
 
 	 // add process
 	 public function add_process() {
+		// set page rules
+		$this->_set_page_rule("C");
         // cek input
         $this->form_validation->set_rules('parent_id', 'Induk Menu', 'trim|required');
 		$this->form_validation->set_rules('nav_title', 'Judul Menu', 'required|max_length[50]');
@@ -162,6 +168,8 @@ class Navigation extends MY_Controller {
 
 	public function delete($nav_id='')
 	{
+		// set page rules
+		$this->_set_page_rule("D");
 		//cek data
 		if (empty($nav_id)) {
 			// default error
@@ -184,6 +192,8 @@ class Navigation extends MY_Controller {
 
 	public function delete_process()
 	{
+		// set page rules
+		$this->_set_page_rule("D");
 		$nav_id = $this->input->post('nav_id', true);
 		//cek data
 		if (empty($nav_id)) {
@@ -206,6 +216,8 @@ class Navigation extends MY_Controller {
 
 	public function edit($nav_id='')
 	{
+		// set page rules
+		$this->_set_page_rule("U");
 		//default notif
 		$notif = $this->session->userdata('sess_notif');
 		//cek data
@@ -230,6 +242,8 @@ class Navigation extends MY_Controller {
 
 	// edit process
 	public function edit_process() {
+		// set page rules
+		$this->_set_page_rule("U");
         // cek input
         $this->form_validation->set_rules('parent_id', 'Induk Menu', 'trim|required');
 		$this->form_validation->set_rules('nav_title', 'Judul Menu', 'required|max_length[50]');
