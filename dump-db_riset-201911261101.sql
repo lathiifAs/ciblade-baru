@@ -27,6 +27,7 @@ CREATE TABLE `com_group` (
   `group_name` varchar(50) DEFAULT NULL,
   `group_desc` varchar(100) DEFAULT NULL,
   `mdb` varchar(10) DEFAULT NULL,
+  `mdb_name` varchar(40) DEFAULT NULL,
   `mdd` datetime DEFAULT NULL,
   PRIMARY KEY (`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -38,8 +39,43 @@ CREATE TABLE `com_group` (
 
 LOCK TABLES `com_group` WRITE;
 /*!40000 ALTER TABLE `com_group` DISABLE KEYS */;
-INSERT INTO `com_group` VALUES ('1','developer web',NULL,NULL,NULL);
+INSERT INTO `com_group` VALUES ('1','Developer web','Group developer website','1911130001',NULL,'2019-11-22 09:44:11'),('2','Operator','Admin Operator','1911130001',NULL,'2019-11-22 09:47:26');
 /*!40000 ALTER TABLE `com_group` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `com_menu`
+--
+
+DROP TABLE IF EXISTS `com_menu`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `com_menu` (
+  `nav_id` int(11) NOT NULL,
+  `parent_id` varchar(10) DEFAULT NULL,
+  `nav_title` varchar(50) DEFAULT NULL,
+  `nav_desc` varchar(100) DEFAULT NULL,
+  `nav_url` varchar(100) DEFAULT NULL,
+  `nav_no` int(11) unsigned DEFAULT NULL,
+  `client_st` enum('1','0') DEFAULT '0',
+  `active_st` enum('1','0') DEFAULT '1',
+  `display_st` enum('1','0') DEFAULT '1',
+  `nav_icon` varchar(50) DEFAULT NULL,
+  `mdb` varchar(10) DEFAULT NULL,
+  `mdb_name` varchar(50) DEFAULT NULL,
+  `mdd` datetime DEFAULT NULL,
+  PRIMARY KEY (`nav_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `com_menu`
+--
+
+LOCK TABLES `com_menu` WRITE;
+/*!40000 ALTER TABLE `com_menu` DISABLE KEYS */;
+INSERT INTO `com_menu` VALUES (2,'0','Master Data','','#',20,'0','1','1','ti-harddrives','1911130001','admin','2019-11-22 04:05:43'),(3,'2','User','menu user','master/user',1,'0','1','1','','1911130001','admin','2019-11-22 04:06:47'),(4,'0','Sistem','','#',21,'0','1','1','ti-settings','1911130001','admin','2019-11-22 04:06:08'),(5,'4','Menu Navigasi','navigasi','sistem/navigation',1,'0','1','1',NULL,'1911130001','admin','2019-11-21 17:30:53'),(6,'4','Role','master role','sistem/role',3,'0','1','1',NULL,'1911130001','admin','2019-11-21 17:31:23'),(7,'4','Group','group role','sistem/group',2,'0','1','1',NULL,'1911130001','admin','2019-11-21 17:32:32'),(8,'0','Logout','logout','sistem/login/logout',100,'0','1','1','ti-close','1911130001','admin','2019-11-22 04:06:36'),(9,'0','Beranda','Link to beranda','client/beranda',99,'0','1','1','ti-home','1911130001','admin','2019-11-22 04:06:20'),(10,'0','Dashboard','','#',1,'0','1','1','ti-home','1911130001','admin','2019-11-22 04:54:22'),(11,'10','Dashboard','dashboard content','welcome',1,'0','1','1','','1911130001','admin','2019-11-22 04:58:30'),(12,'4','Permission','Hak akses user','sistem/permission',4,'0','1','1','','1911130001','admin','2019-11-22 08:03:16');
+/*!40000 ALTER TABLE `com_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -88,6 +124,7 @@ CREATE TABLE `com_role` (
   `role_nm` varchar(100) DEFAULT NULL,
   `role_desc` varchar(100) DEFAULT NULL,
   `mdb` varchar(50) DEFAULT NULL,
+  `mdb_name` varchar(50) DEFAULT NULL,
   `mdd` datetime DEFAULT NULL,
   PRIMARY KEY (`role_id`),
   KEY `group_id` (`group_id`),
@@ -101,8 +138,34 @@ CREATE TABLE `com_role` (
 
 LOCK TABLES `com_role` WRITE;
 /*!40000 ALTER TABLE `com_role` DISABLE KEYS */;
-INSERT INTO `com_role` VALUES ('1','1','developer',NULL,NULL,NULL);
+INSERT INTO `com_role` VALUES ('1','1','Developer','Web developer','1911130001',NULL,'2019-11-22 09:45:00'),('2','2','Administrator','Admin Website','admin',NULL,'2019-11-13 07:49:08');
 /*!40000 ALTER TABLE `com_role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `com_role_menu`
+--
+
+DROP TABLE IF EXISTS `com_role_menu`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `com_role_menu` (
+  `role_id` varchar(5) NOT NULL,
+  `nav_id` varchar(10) NOT NULL,
+  `role_tp` varchar(4) NOT NULL DEFAULT '1111',
+  PRIMARY KEY (`nav_id`,`role_id`),
+  KEY `role_id` (`role_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `com_role_menu`
+--
+
+LOCK TABLES `com_role_menu` WRITE;
+/*!40000 ALTER TABLE `com_role_menu` DISABLE KEYS */;
+INSERT INTO `com_role_menu` VALUES ('1','10','1111'),('2','10','1111'),('1','11','1111'),('2','11','1111'),('1','12','1111'),('1','2','1111'),('1','3','1111'),('1','4','1111'),('1','5','1111'),('1','6','1111'),('1','7','1111'),('1','8','1111'),('2','8','1111'),('1','9','1111');
+/*!40000 ALTER TABLE `com_role_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -130,7 +193,7 @@ CREATE TABLE `com_role_user` (
 
 LOCK TABLES `com_role_user` WRITE;
 /*!40000 ALTER TABLE `com_role_user` DISABLE KEYS */;
-INSERT INTO `com_role_user` VALUES ('1911130001','1','2','1'),('2019001','1','2','1');
+INSERT INTO `com_role_user` VALUES ('1911130001','1','2','1'),('1911260001','2','2','1');
 /*!40000 ALTER TABLE `com_role_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,6 +213,7 @@ CREATE TABLE `com_user` (
   `user_st` enum('1','0','2') DEFAULT NULL,
   `examiner_number` varchar(50) DEFAULT NULL COMMENT 'Medex - Nomor Penunjukan Penguji',
   `mdb` varchar(10) DEFAULT NULL,
+  `mdb_name` varchar(50) DEFAULT NULL,
   `mdd` datetime DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_name` (`user_name`)
@@ -162,7 +226,7 @@ CREATE TABLE `com_user` (
 
 LOCK TABLES `com_user` WRITE;
 /*!40000 ALTER TABLE `com_user` DISABLE KEYS */;
-INSERT INTO `com_user` VALUES ('1911130001','admin','wyfQcbk+WwSzsPR7hUspxC2FJuqTTAXXgcxtcH5OeWFY0EeW04RxVFo1+vjcTx5Nkfrn4beQSewYWzj58egKGw==','2282622326','adminadmin@gmail.com','1',NULL,'l','2019-11-13 04:30:11'),('2019001','lathiif_as','apabae',NULL,'ajisanthoshol@gmail.com','1',NULL,NULL,NULL),('2019002','sidangkomite1','t09sztz0Hi5hA2yjAvPNWijDP+VUW9VkByzisNY9TXrUngKF76m/E5c/d0QiAo4crCbeSX2OALaKKKMdz9SPMA==','1613072512','admin@gmail.com','1',NULL,NULL,NULL);
+INSERT INTO `com_user` VALUES ('1911130001','admin','wyfQcbk+WwSzsPR7hUspxC2FJuqTTAXXgcxtcH5OeWFY0EeW04RxVFo1+vjcTx5Nkfrn4beQSewYWzj58egKGw==','2282622326','adminadmin@gmail.com','1',NULL,'',NULL,'2019-11-13 04:30:11'),('1911260001','operator','ObruB8N5PI7qZkNiEOZnRZTRhvC/dnZgRM+Pc91rYx4+kEik8CCzt+go80zQzPJFQ0LjIX+UueRDbg2J00BETA==','3618023297','op@gmail.com','1',NULL,'1911130001','admin','2019-11-26 03:51:55');
 /*!40000 ALTER TABLE `com_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -241,7 +305,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('1911130001','admin','indramayu',NULL,'L',NULL),('2019001','lathiif aji santhosho',NULL,NULL,NULL,NULL),('2019002','testing','',NULL,'P',NULL);
+INSERT INTO `user` VALUES ('1911130001','admin','indramayu',NULL,'L',NULL),('1911260001','operator','',NULL,'L',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -258,4 +322,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-13 10:54:27
+-- Dump completed on 2019-11-26 11:01:25
