@@ -168,7 +168,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         public function parsing($data)
         {
-            return $this->tmp_data = $data;
+            if (!empty($this->tmp_data)) {
+                return array_merge($this->tmp_data, $data);
+            }else{
+                return $this->tmp_data = $data;
+            }
         }
         
         public function parsing_navbar($navbar)

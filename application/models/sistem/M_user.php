@@ -73,15 +73,19 @@ class M_user extends CI_Model {
   }
 
     //get all
-    public function get_all($number,$offset)
+    public function get_all($number,$offset, $params)
     {
         $this->db->select('com_user.user_id, com_user.user_name, com_user.user_mail, com_user.user_st, com_user.mdb, com_user.mdd, com_role.role_nm, user.nama, user.alamat, user.jns_kelamin');
         $this->db->from('com_user');
         $this->db->join('user', 'user.user_id = com_user.user_id', 'left');
         $this->db->join('com_role_user', 'com_role_user.user_id = user.user_id', 'left');
         $this->db->join('com_role', 'com_role_user.role_id = com_role.role_id', 'left');
+        if (!empty($params)) {
+          $this->db->like($params);
+        }
         $this->db->limit($number, $offset); 
         $query = $this->db->get();
+        // echo "<pre>";echo $this->db->last_query();exit;
         if ($query->num_rows() > 0) {
           $result = $query->result_array();
           $query->free_result();

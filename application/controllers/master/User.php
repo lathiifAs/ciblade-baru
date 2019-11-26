@@ -11,6 +11,8 @@ Phone : 	082126641201
 
 class User extends MY_Controller {
 
+	//init serach name
+	const SESSION_SEARCH = 'search_user';
     // constructor
 	public function __construct()
 	{
@@ -29,9 +31,6 @@ class User extends MY_Controller {
 		--------------------------------------------------------*/
 		//parsing js url
 		$this->parsing_js([
-			// 'assets/js/jquery.smartWizard.js'
-			// 'assets/vendor/jquery-validation/dist/jquery.validate.min.js',
-			// 'assets/vendor/jquery-validation/dist/additional-methods.min.js',
 			// 'assets/vendor/jquery-steps/jquery.steps.min.js',
 			// 'assets/costum/js/main.js'
 		   ]);
@@ -54,6 +53,9 @@ class User extends MY_Controller {
 		//default notif
 		$notif = $this->session->userdata('sess_notif');
 
+		// search session
+		$search = $this->session->userdata(self::SESSION_SEARCH);
+
 		//create pagination
 		$this->load->library('pagination');
 		$total_row = $this->M_user->count_all();
@@ -62,7 +64,7 @@ class User extends MY_Controller {
 		$config['per_page'] = 10;
 		$from = $this->uri->segment(4);
 		$this->pagination->initialize($config);		
-		$result = $this->M_user->get_all($config['per_page'],$from);
+		$result = $this->M_user->get_all($config['per_page'],$from, $search);
 		if (empty($result)) {
 			$no = 0;
 		}else{
@@ -78,6 +80,7 @@ class User extends MY_Controller {
 		$data = [
 			'tipe'			=> $notif['tipe'],
 			'pesan' 		=> $notif['pesan'],
+			'search' 		=> $search,
 			'result' 		=> $result,
 			'no' 			=> $no,
 			'pagination'	=> $this->pagination->create_links()
@@ -87,6 +90,22 @@ class User extends MY_Controller {
 		$this->session->unset_userdata('sess_notif');
 		//parsing (template_content, variabel_parsing)
 		$this->parsing_template('master/user/index', $data);
+	}
+
+	public function search_process() {
+		// page rule read
+		$this->_set_page_rule("R");
+
+		if ($this->input->post('search', true) == "tampilkan") {
+		  $params = array(
+			'nama'   	=> $this->input->post('nama', true),
+			'user_mail' => $this->input->post('user_mail', true)
+		  );
+		  $this->session->set_userdata(self::SESSION_SEARCH, $params);
+		} else {
+		  $this->session->unset_userdata(self::SESSION_SEARCH);
+		}
+		redirect("master/user");
 	}
 
 	public function add($notif='')

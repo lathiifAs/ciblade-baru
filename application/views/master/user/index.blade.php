@@ -41,13 +41,13 @@
                         <div class="card-body" style="margin-top:20px">
                             <div class="card-content">
                                     <div class="horizontal-form-elements">
-                                            <form class="form-horizontal">
+                                            <form class="form-horizontal" action="{{ site_url('master/user/search_process') }}" method="POST">
                                                 <div class="row">
                                                     <div class="col-lg-6">
                                                         <div class="form-group">
                                                             <label class="col-sm-2 control-label">Nama</label>
                                                             <div class="col-sm-10">
-                                                                <input type="text" class="form-control" placeholder="Isian nama...">
+                                                                <input type="text" name="nama" class="form-control" placeholder="Isian nama..." value="{{ $search['nama'] }}">
                                                             </div>
                                                         </div>
                                                     </div><!-- /# column -->
@@ -55,13 +55,13 @@
                                                         <div class="form-group">
                                                             <label class="col-sm-2 control-label">Email</label>
                                                             <div class="col-sm-10">
-                                                                    <input type="text" class="form-control" placeholder="Isian email...">
+                                                                    <input type="text" name="user_mail" class="form-control" placeholder="Isian email..." value="{{ $search['user_mail'] }}">
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12 text-right">
-                                                        <button type="button" class="btn btn-default m-b-10 m-l-5">Cari</button>
-                                                        <button type="button" class="btn btn-dark m-b-10 m-l-5">Reset</button>
+                                                        <button type="submit" name="search" value="tampilkan" class="btn btn-default m-b-10 m-l-5">Cari</button>
+                                                        <button type="submit" name="search" value="reset" class="btn btn-dark m-b-10 m-l-5">Reset</button>
                                                     </div>
                                                 </div>
                                             </form>
