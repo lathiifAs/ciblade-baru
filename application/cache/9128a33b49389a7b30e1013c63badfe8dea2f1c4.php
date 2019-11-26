@@ -141,6 +141,16 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div class="col-lg-12" style="margin-top:50px">
+                                                            <div class="form-group">
+                                                                <label style="margin-right:30px">Gunakan sebagai menu Client</label>
+                                                                <?php if($result['client_st'] == 1): ?>
+                                                                    <input type="checkbox" name="client_st" checked data-toggle="toggle" data-onstyle="primary">
+                                                                <?php else: ?>
+                                                                    <input type="checkbox" name="client_st" data-toggle="toggle" data-onstyle="primary">
+                                                                <?php endif; ?>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <hr>
                                                     <div class="row">
