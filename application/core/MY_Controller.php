@@ -15,6 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         protected $com_portal;
         protected $com_user;
         protected $nav_id = 0;
+        protected $nav_url = 0;
         protected $parent_id = 0;
         protected $parent_selected = 0;
         protected $role_tp = array();
@@ -34,11 +35,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }
 
         public function front_render($view_name,$data,$head){
-            
             echo $this->blade->view()->make('_parts/header', $head);
             echo $this->blade->view()->make($view_name, $data);
             echo $this->blade->view()->make('_parts/footer', $head);
-            
         }
 
         //template admin
@@ -83,6 +82,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         //template client
         public function client_template($content, $data ='')
         {
+            // display current page
+            self::_display_current_page_client();
+            // display sidebar navigation
+            self::_display_sidebar_navigation_client();
             $content = ['content' => $content];
             //get semget url
             $uri_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -91,12 +94,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $segment = array(
                     'seg_menu' => $uri_segments[3]
                 );
-                $params_parsing = array_merge($content, $this->tmp_var,$data, $this->tmp_data, $segment);
+                $params_parsing = array_merge($content, $this->tmp_var,$data, $this->tmp_data,  $this->tmp_navbar, $segment);
             }else{
-                $params_parsing = array_merge($content, $this->tmp_var,$data, $this->tmp_data);
+                $params_parsing = array_merge($content, $this->tmp_var,$data, $this->tmp_data,  $this->tmp_navbar);
             }
             $all = array('all_data' => $params_parsing); 
             $update_params = $all['all_data'];
+
             echo $this->blade->view()->make('client_template/template',  $update_params);
         }
 
@@ -224,6 +228,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
         }
 
+        private function _display_current_page_client() {
+            // get current page (segment 1 : folder, segment 2 : sub folder, segment 3 : controller)
+            $url_menu = $this->uri->segment(1) . '/' . $this->uri->segment(2);
+            if (is_dir(APPPATH . 'controllers' . '/' . $this->uri->segment(1) . '/' . $this->uri->segment(2))) {
+                $url_menu .= '/' . $this->uri->segment(3);
+            }
+            $url_menu = trim($url_menu, '/');
+            $url_menu = (empty($url_menu)) ? 'welcome' : $url_menu;
+            $result = $this->M_site->get_current_page($url_menu);
+            if (!empty($result)) {
+                $this->parsing_navbar([
+                    'page' => $result
+                ]);
+                $this->nav_id = $result['nav_id'];
+                $this->nav_url = $result['nav_url'];
+                $this->parent_id = $result['parent_id'];
+            }
+        }
+
         // authority
         protected function _check_authority() {
             // default rule tp
@@ -298,6 +321,46 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 'list_sidebar_nav' => $html
             ]);
         }
+
+        // sidebar navigation
+        protected function _display_sidebar_navigation_client() {
+            $html = "";
+            // get data
+            $rs_id = $this->M_site->get_navigation_user_by_parent_client(0);
+            if (!empty($rs_id)) {
+                foreach ($rs_id as $rec) {
+                    // check selected
+                    $parent_selected = self::_get_parent_group($this->parent_id, $this->parent_selected);
+                    if ($parent_selected == 0) {
+                        $parent_selected = $this->nav_url;
+                    };
+                    // get child navigation
+                    $child = $this->_get_child_navigation_client($rec['nav_id']);
+                    if (!empty($child)) {
+                        $url_parent = 'javascript:void(0)';
+                        $sub_toggle = 'class="sidebar-sub-toggle"';
+                        $data_toggle = '<span class="sidebar-collapse-icon ti-angle-down"></span>';
+                    } else {
+                        $url_parent = site_url($rec['nav_url']);
+                        $data_toggle = '';
+                        $sub_toggle = '';
+                    }
+                    // selected
+                    $selected = ($rec['nav_url'] == $parent_selected) ? 'active' : '';
+                    $selected_link = ($rec['nav_url'] == $parent_selected) ? 'pl-0' : '';
+                    //parse 
+                    $html .='
+                    <li class="nav-item '. $selected .'"><a href="'. $url_parent.'" class="nav-link '.$selected_link.'">'.$rec['nav_title'].'</a>
+                    '.$child.'
+                    </li>';
+
+                }
+            }
+            // output
+            $this->parsing_navbar([
+                'list_navbar' => $html
+            ]);
+        }
         
         // utility to get parent selected
         protected function _get_parent_group($int_nav, $int_limit) {
@@ -315,7 +378,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             return $selected_parent;
         }
 
-            // get child
+        // get child
         protected function _get_child_navigation($parent_id) {
             $html = '';
             // get parent selected
@@ -338,7 +401,40 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     // selected
                     $selected = ($rec['nav_id'] == $parent_selected) ? 'active' : '';
 
-                    // <li><a href="{{ site_url('welcome') }}">Dashboard 1</a></li>
+                    // parse
+                    $html .= '<li>';
+                    $html .= '<a href="' . $url_parent . '">'. $rec['nav_title'] . '</a>';
+                    $html .= $child;
+                    $html .= '</li>';
+                }
+                $html .= '</ul>';
+            }
+            // return
+            return $html;
+        }
+
+        // get child
+        protected function _get_child_navigation_client($parent_id) {
+            $html = '';
+            // get parent selected
+            $parent_selected = self::_get_parent_group($this->parent_id, $parent_id);
+            if ($parent_selected == 0) {
+                $parent_selected = $this->nav_id;
+            }
+            $rs_id = $this->M_site->get_navigation_user_by_parent_client($parent_id);
+            if (!empty($rs_id)) {
+                $html .= '<ul>';
+                foreach ($rs_id as $rec) {
+                    // get child navigation
+                    $child = $this->_get_child_navigation_client($rec['nav_id']);
+                    if (!empty($child)) {
+                        $url_parent = 'javascript:void(0)';
+                    } else {
+                        $url_parent = site_url($rec['nav_url']);
+                    }
+                    // selected
+                    $selected = ($rec['nav_id'] == $parent_selected) ? 'active' : '';
+
                     // parse
                     $html .= '<li>';
                     $html .= '<a href="' . $url_parent . '">'. $rec['nav_title'] . '</a>';

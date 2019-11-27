@@ -51,7 +51,25 @@ class M_site extends CI_Model {
                 INNER JOIN com_role_menu b ON a.nav_id = b.nav_id
                 INNER JOIN com_role_user c ON b.role_id = c.role_id
                 WHERE c.user_id = ? AND parent_id = ?
-                AND active_st = '1' AND display_st = '1' AND c.role_display = '1'
+                AND active_st = '1' AND display_st = '1' AND c.role_display = '1' AND client_st != '1'
+                GROUP BY a.nav_id
+                ORDER BY nav_no ASC";
+        $query = $this->db->query($sql, $params);
+        $this->db->last_query();
+        if ($query->num_rows() > 0) {
+            $result = $query->result_array();
+            $query->free_result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
+    // get navigation by user and parent nav
+    function get_navigation_user_by_parent_client($params) {
+        $sql = "SELECT a.* 
+                FROM com_menu a
+                WHERE parent_id = ? AND active_st = '1' AND display_st = '1' AND a.client_st = '1'
                 GROUP BY a.nav_id
                 ORDER BY nav_no ASC";
         $query = $this->db->query($sql, $params);

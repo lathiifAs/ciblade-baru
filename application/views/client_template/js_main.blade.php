@@ -1,25 +1,20 @@
-    <!-- jquery plugins here-->
-    <!-- jquery -->
-    <script src="{{ base_url('assets/client_template/js/jquery-1.12.1.min.js') }}"></script>
-    <!-- popper js -->
-    <script src="{{ base_url('assets/client_template/js/popper.min.js') }}"></script>
-    <!-- bootstrap js -->
-    <script src="{{ base_url('assets/client_template/js/bootstrap.min.js') }}"></script>
-    <!-- magnific js -->
-    <script src="{{ base_url('assets/client_template/js/jquery.magnific-popup.js') }}"></script>
-    <!-- swiper js -->
-    <script src="{{ base_url('assets/client_template/js/swiper.min.js') }}"></script>
-    <!-- masonry js -->
-    <script src="{{ base_url('assets/client_template/js/masonry.pkgd.js') }}"></script>
-    <!-- contact js -->
-    <script src="{{ base_url('assets/client_template/js/jquery.ajaxchimp.min.js') }}"></script>
-    <script src="{{ base_url('assets/client_template/js/jquery.form.js') }}"></script>
-    <script src="{{ base_url('assets/client_template/js/jquery.validate.min.js') }}"></script>
-    <script src="{{ base_url('assets/client_template/js/mail-script.js') }}"></script>
-    <script src="{{ base_url('assets/client_template/js/contact.js') }}"></script>
-    <script src="{{ base_url('assets/client_template/js/slick.min.js') }}"></script>
-    <!-- custom js -->
-    <script src="{{ base_url('assets/client_template/js/custom.js') }}"></script>
-</body>
-
+<script src="{{ base_url('assets/client_template/js/jquery.min.js') }}"></script>
+  <script src="{{ base_url('assets/client_template/js/jquery-migrate-3.0.1.min.js') }}"></script>
+  <script src="{{ base_url('assets/client_template/js/popper.min.js') }}"></script>
+  <script src="{{ base_url('assets/client_template/js/bootstrap.min.js') }}"></script>
+  <script src="{{ base_url('assets/client_template/js/jquery.easing.1.3.js') }}"></script>
+  <script src="{{ base_url('assets/client_template/js/jquery.waypoints.min.js') }}"></script>
+  <script src="{{ base_url('assets/client_template/js/jquery.stellar.min.js') }}"></script>
+  <script src="{{ base_url('assets/client_template/js/owl.carousel.min.js') }}"></script>
+  <script src="{{ base_url('assets/client_template/js/jquery.magnific-popup.min.js') }}"></script>
+  <script src="{{ base_url('assets/client_template/js/aos.js') }}"></script>
+  <script src="{{ base_url('assets/client_template/js/jquery.animateNumber.min.js') }}"></script>
+  <script src="{{ base_url('assets/client_template/js/bootstrap-datepicker.js') }}"></script>
+  <script src="{{ base_url('assets/client_template/js/jquery.timepicker.min.js') }}"></script>
+  <script src="{{ base_url('assets/client_template/js/scrollax.min.js') }}"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="{{ base_url('assets/client_template/js/google-map.js') }}"></script>
+  <script src="{{ base_url('assets/client_template/js/main.js') }}"></script>
+    
+  </body>
 </html>
